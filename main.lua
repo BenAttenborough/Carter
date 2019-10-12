@@ -1,7 +1,7 @@
 Input = require "/libs/boipushy/Input"
 Object = require "/libs/classic/classic"
 player = require "/objects/player"
--- Carter = Player(10, 10)
+playfield = require "/objects/playfield"
 
 function bindInputs()
 	input = Input()
@@ -13,7 +13,8 @@ end
 
 function love.load()
 	bindInputs()
-	Carter = Player(10, 10)
+	Game_Playfield = Playfield(0, 800, 600, 0)
+	Carter = Player(10, 10, Game_Playfield)
 end
 
 function love.update(dt)
@@ -24,5 +25,16 @@ function love.draw()
 	love.graphics.setBackgroundColor(0.8, 0.8, 0.8, 1)
 	-- love.graphics.draw(mummy, mummyX, mummyY)
 	love.graphics.draw(Carter.graphic, Carter.x, Carter.y)
-	love.graphics.line(0, 0, 800, 0, 800, 600, 0, 600, 0, 0)
+	love.graphics.line(
+		Game_Playfield.top,
+		Game_Playfield.left,
+		Game_Playfield.right,
+		Game_Playfield.top,
+		Game_Playfield.right,
+		Game_Playfield.bottom,
+		Game_Playfield.left,
+		Game_Playfield.bottom,
+		Game_Playfield.top,
+		Game_Playfield.left
+	)
 end

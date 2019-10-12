@@ -2,11 +2,14 @@ Object = require "/libs/classic/classic"
 
 Player = Object:extend()
 
-function Player:new(x, y)
+function Player:new(x, y, playfield)
 	self.graphic = love.graphics.newImage("graphics/carter.png")
 	self.x = x or 0
 	self.y = y or 0
 	self.speed = 5
+	self.playfield = playfield
+	self.width = self.graphic:getWidth()
+	self.height = self.graphic:getHeight()
 end
 
 function Player:draw()
@@ -14,19 +17,27 @@ function Player:draw()
 end
 
 function Player:moveRight()
-	self.x = self.x + self.speed
+	if (self.x < self.playfield.right - self.width) then
+		self.x = self.x + self.speed
+	end
 end
 
 function Player:moveLeft()
-	self.x = self.x - self.speed
+	if (self.x > self.playfield.left) then
+		self.x = self.x - self.speed
+	end
 end
 
 function Player:moveUp()
-	self.y = self.y - self.speed
+	if (self.y > self.playfield.top) then
+		self.y = self.y - self.speed
+	end
 end
 
 function Player:moveDown()
-	self.y = self.y + self.speed
+	if (self.y < self.playfield.bottom - self.height) then
+		self.y = self.y + self.speed
+	end
 end
 
 function Player:listenForInput()
