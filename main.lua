@@ -1,6 +1,6 @@
 Input = require "/libs/boipushy/Input"
 Object = require "/libs/classic/classic"
-player = require "/games/carter/objects/player"
+player = require "/objects/player"
 -- Carter = Player(10, 10)
 
 function bindInputs()

@@ -3,7 +3,7 @@ Object = require "/libs/classic/classic"
 Player = Object:extend()
 
 function Player:new(x, y)
-	self.graphic = love.graphics.newImage("games/carter/graphics/carter.png")
+	self.graphic = love.graphics.newImage("graphics/carter.png")
 	self.x = x or 0
 	self.y = y or 0
 	self.speed = 5
