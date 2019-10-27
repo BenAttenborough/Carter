@@ -4,8 +4,7 @@ player = require "/objects/player"
 playfield = require "/objects/playfield"
 tombCreator = require "/objects/tombs"
 collision = require "/utilities/collision"
--- print("tombCreator", tombCreator)
--- print("isDirectionClear", isDirectionClear)
+require "/objects/path"
 
 function bindInputs()
 	input = Input()
@@ -15,118 +14,117 @@ function bindInputs()
 	input:bind("down", "down")
 end
 
+function isOnRow(target, path)
+	if target.top >= path.top and target.bottom <= path.bottom then
+		return true
+	end
+	return false
+end
+
+function isOnCol(target, path)
+	if target.left >= path.left and target.right <= path.right then
+		return true
+	end
+	return false
+end
+
 function love.load()
 	bindInputs()
 	Game_Playfield = Playfield(0, 800, 600, 0)
-	Carter = Player(10, 10, Game_Playfield)
+	Carter = Player(10, 100, Game_Playfield)
 	Tomb = TombCreator(100, 200, 50, 100)
 	Tomb2 = TombCreator(300, 200, 50, 100)
 	obstacles = {
 		Tomb,
 		Tomb2
 	}
+	rows = {
+		RowCreator(10, 100),
+		RowCreator(10, 200),
+		RowCreator(10, 300),
+		RowCreator(10, 400),
+		RowCreator(10, 500)
+	}
+	cols = {
+		ColCreator(10, 100),
+		ColCreator(110, 100),
+		ColCreator(210, 100),
+		ColCreator(310, 100),
+		ColCreator(410, 100),
+		ColCreator(510, 100)
+	}
+
+	col1 = PathCreator(10, 90, 70, 400)
+	col2 = ColCreator(110, 90)
+	row1message = "True"
+	col1message = "True"
+	allowHorz = true
+	allowVert = true
 end
 
--- function isRightClear(target, obstacle)
--- 	if target.right <= obstacle.right then
--- 		if target.right >= obstacle.left and target.top < obstacle.bottom and target.bottom > obstacle.top then
--- 			return false
--- 		end
--- 	end
--- 	return true
--- end
+function checkRowPos(xrows, target)
+	for i, v in ipairs(xrows) do
+		if isOnRow(target, v) then
+			-- print("Row" .. i .. "clear")
+			return true
+		end
+	end
+end
 
--- function isLeftClear(target, obstacle)
--- 	if target.left >= obstacle.left then
--- 		if target.left <= obstacle.right and target.top < obstacle.bottom and target.bottom > obstacle.top then
--- 			return false
--- 		end
--- 	end
--- end
-
--- function isTopClear(target, obstacle)
--- 	if target.top >= obstacle.bottom then
--- 		if target.top <= obstacle.bottom and target.right > obstacle.left and target.left < obstacle.right then
--- 			return false
--- 		end
--- 	end
--- end
-
--- function isBottomClear(target, obstacle)
--- 	if target.bottom <= obstacle.top then
--- 		if target.bottom >= obstacle.top and target.right > obstacle.left and target.left < obstacle.right then
--- 			return false
--- 		end
--- 	end
--- end
-
--- function isDirectionClear(direction, target, obstacles)
--- 	offset = 1
--- 	if direction == "RIGHT" then
--- 		for i, obstacle in ipairs(obstacles) do
--- 			if isRightClear(target, obstacle) == false then
--- 				return false
--- 			end
--- 		end
--- 	end
--- 	if direction == "LEFT" then
--- 		for i, obstacle in ipairs(obstacles) do
--- 			if isLeftClear(target, obstacle) == false then
--- 				return false
--- 			end
--- 		end
--- 	end
--- 	if direction == "UP" then
--- 		for i, obstacle in ipairs(obstacles) do
--- 			if isTopClear(target, obstacle) == false then
--- 				return false
--- 			end
--- 		end
--- 	end
--- 	if direction == "DOWN" then
--- 		for i, obstacle in ipairs(obstacles) do
--- 			if isBottomClear(target, obstacle) == false then
--- 				return false
--- 			end
--- 		end
--- 	end
--- 	return true
--- end
+function checkColPos(xcols, target)
+	for i, v in ipairs(xcols) do
+		if isOnCol(target, v) then
+			-- print("Row" .. i .. "clear")
+			return true
+		end
+	end
+end
 
 function love.update(dt)
-	if input:down("right", timestep) then
-		target = Carter:getBounds()
-		obstacle = Tomb:getBounds()
-		if collision.isDirectionClear("RIGHT", target, obstacles) then
-			Carter:moveRight()
+	if allowHorz then
+		if input:down("right", timestep) then
+			target = Carter:getBounds()
+			obstacle = Tomb:getBounds()
+			if collision.isDirectionClear("RIGHT", target, obstacles) then
+				Carter:moveRight()
+			end
+			allowHorz = checkRowPos(rows, target)
+			allowVert = checkColPos(cols, target)
+		end
+		if input:down("left", timestep) then
+			target = Carter:getBounds()
+			obstacle = Tomb:getBounds()
+			if collision.isDirectionClear("LEFT", target, obstacles) then
+				Carter:moveLeft()
+			end
+			allowHorz = checkRowPos(rows, target)
+			allowVert = checkColPos(cols, target)
 		end
 	end
-	if input:down("left", timestep) then
-		target = Carter:getBounds()
-		obstacle = Tomb:getBounds()
-		if collision.isDirectionClear("LEFT", target, obstacles) then
-			Carter:moveLeft()
+	if allowVert then
+		if input:down("up", timestep) then
+			target = Carter:getBounds()
+			obstacle = Tomb:getBounds()
+			if collision.isDirectionClear("UP", target, obstacles) then
+				Carter:moveUp()
+			end
+			allowHorz = checkRowPos(rows, target)
+			allowVert = checkColPos(cols, target)
 		end
-	end
-	if input:down("up", timestep) then
-		target = Carter:getBounds()
-		obstacle = Tomb:getBounds()
-		if collision.isDirectionClear("UP", target, obstacles) then
-			Carter:moveUp()
-		end
-	end
-	if input:down("down", timestep) then
-		target = Carter:getBounds()
-		obstacle = Tomb:getBounds()
-		if collision.isDirectionClear("DOWN", target, obstacles) then
-			Carter:moveDown()
+		if input:down("down", timestep) then
+			target = Carter:getBounds()
+			obstacle = Tomb:getBounds()
+			if collision.isDirectionClear("DOWN", target, obstacles) then
+				Carter:moveDown()
+			end
+			allowHorz = checkRowPos(rows, target)
+			allowVert = checkColPos(cols, target)
 		end
 	end
 end
 
 function love.draw()
 	love.graphics.setBackgroundColor(0.8, 0.8, 0.8, 1)
-	-- love.graphics.draw(mummy, mummyX, mummyY)
 	love.graphics.draw(Carter.graphic, Carter.x, Carter.y)
 	love.graphics.line(
 		Game_Playfield.top,
@@ -142,13 +140,27 @@ function love.draw()
 	)
 	Tomb:draw()
 	Tomb2:draw()
+	-- row1:draw()
+	-- row2:draw()
+	-- row3:draw()
+	-- print("rows", rows)
+	for i, v in ipairs(rows) do
+		v:draw()
+	end
+	for i, v in ipairs(cols) do
+		v:draw()
+	end
 	playerInfo = "Player X: " .. Carter.x .. " Y: " .. Carter.y
 	obstacleInfo = "Obstacle X: " .. Tomb.x .. " Y: " .. Tomb.y
 	playerDimensions = "Player width: " .. Carter.width .. " height: " .. Carter.height
 
 	love.graphics.print(playerInfo, 10, 10)
 	love.graphics.print(obstacleInfo, 10, 25)
-	love.graphics.print(playerDimensions, 10, 40)
-
-	-- love.graphics.rectangle("line", Carter.x, Carter.y, Carter.width, Carter.height)
+	horzMes = ""
+	if allowHorz then
+		horzMes = "True"
+	else
+		horzMes = "False"
+	end
+	love.graphics.print("Allow Horz?:" .. horzMes, 10, 40)
 end

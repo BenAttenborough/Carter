@@ -66,6 +66,10 @@ function isDirectionClear(direction, target, obstacles)
 	return true
 end
 
+-- Path
+-- function isOnPath(x)
+-- end
+
 utils.isDirectionClear = isDirectionClear
 
 return utils
