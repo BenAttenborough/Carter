@@ -3,6 +3,9 @@ Object = require "/libs/classic/classic"
 player = require "/objects/player"
 playfield = require "/objects/playfield"
 tombCreator = require "/objects/tombs"
+collision = require "/utilities/collision"
+-- print("tombCreator", tombCreator)
+-- print("isDirectionClear", isDirectionClear)
 
 function bindInputs()
 	input = Input()
@@ -17,77 +20,105 @@ function love.load()
 	Game_Playfield = Playfield(0, 800, 600, 0)
 	Carter = Player(10, 10, Game_Playfield)
 	Tomb = TombCreator(100, 200, 50, 100)
+	Tomb2 = TombCreator(300, 200, 50, 100)
+	obstacles = {
+		Tomb,
+		Tomb2
+	}
 end
 
-function isDirectionClear(direction, top, right, bottom, left)
-	-- print(Tomb.x)
+-- function isRightClear(target, obstacle)
+-- 	if target.right <= obstacle.right then
+-- 		if target.right >= obstacle.left and target.top < obstacle.bottom and target.bottom > obstacle.top then
+-- 			return false
+-- 		end
+-- 	end
+-- 	return true
+-- end
 
-	-- x axis = 10 to 70
-	-- y axis = 10 to 180
-	-- if x >= Tomb.left and x <= Tomb.right then
-	-- 	if y >= Tomb.top and y <= Tom.bottom then
-	-- 		return false
-	-- 	end
-	-- end
+-- function isLeftClear(target, obstacle)
+-- 	if target.left >= obstacle.left then
+-- 		if target.left <= obstacle.right and target.top < obstacle.bottom and target.bottom > obstacle.top then
+-- 			return false
+-- 		end
+-- 	end
+-- end
 
-	-- playerRight = "Right: " .. right
+-- function isTopClear(target, obstacle)
+-- 	if target.top >= obstacle.bottom then
+-- 		if target.top <= obstacle.bottom and target.right > obstacle.left and target.left < obstacle.right then
+-- 			return false
+-- 		end
+-- 	end
+-- end
 
-	-- print(playerRight)
+-- function isBottomClear(target, obstacle)
+-- 	if target.bottom <= obstacle.top then
+-- 		if target.bottom >= obstacle.top and target.right > obstacle.left and target.left < obstacle.right then
+-- 			return false
+-- 		end
+-- 	end
+-- end
 
-	if direction == "RIGHT" then
-		if right <= Tomb.right then
-			if right >= Tomb.left and top <= Tomb.bottom and bottom >= Tomb.top then
-				return false
-			end
-		end
-	end
-	if direction == "LEFT" then
-		if left >= Tomb.left then
-			if left <= Tomb.right and top <= Tomb.bottom and bottom >= Tomb.top then
-				return false
-			end
-		end
-	end
-	if direction == "UP" then
-		if top >= Tomb.top then
-			if top <= Tomb.bottom + 5 and right >= Tomb.left and left <= Tomb.right then
-				return false
-			end
-		end
-	end
-	if direction == "DOWN" then
-		-- if top >= Tomb.top then
-		if bottom <= Tomb.top then
-			if bottom >= Tomb.top - 5 and right >= Tomb.left and left <= Tomb.right then
-				return false
-			end
-		end
-	end
-	return true
-end
+-- function isDirectionClear(direction, target, obstacles)
+-- 	offset = 1
+-- 	if direction == "RIGHT" then
+-- 		for i, obstacle in ipairs(obstacles) do
+-- 			if isRightClear(target, obstacle) == false then
+-- 				return false
+-- 			end
+-- 		end
+-- 	end
+-- 	if direction == "LEFT" then
+-- 		for i, obstacle in ipairs(obstacles) do
+-- 			if isLeftClear(target, obstacle) == false then
+-- 				return false
+-- 			end
+-- 		end
+-- 	end
+-- 	if direction == "UP" then
+-- 		for i, obstacle in ipairs(obstacles) do
+-- 			if isTopClear(target, obstacle) == false then
+-- 				return false
+-- 			end
+-- 		end
+-- 	end
+-- 	if direction == "DOWN" then
+-- 		for i, obstacle in ipairs(obstacles) do
+-- 			if isBottomClear(target, obstacle) == false then
+-- 				return false
+-- 			end
+-- 		end
+-- 	end
+-- 	return true
+-- end
 
 function love.update(dt)
-	-- Carter:listenForInput()
 	if input:down("right", timestep) then
-		-- print("Carter.right", Carter.right)
-		-- print("Carter.x", Carter.x)
-		if isDirectionClear("RIGHT", Carter.top, Carter.right, Carter.bottom, Carter.left) then
+		target = Carter:getBounds()
+		obstacle = Tomb:getBounds()
+		if collision.isDirectionClear("RIGHT", target, obstacles) then
 			Carter:moveRight()
 		end
-	-- Carter:moveRight()
 	end
 	if input:down("left", timestep) then
-		if isDirectionClear("LEFT", Carter.top, Carter.right, Carter.bottom, Carter.left) then
+		target = Carter:getBounds()
+		obstacle = Tomb:getBounds()
+		if collision.isDirectionClear("LEFT", target, obstacles) then
 			Carter:moveLeft()
 		end
 	end
 	if input:down("up", timestep) then
-		if isDirectionClear("UP", Carter.top, Carter.right, Carter.bottom, Carter.left) then
+		target = Carter:getBounds()
+		obstacle = Tomb:getBounds()
+		if collision.isDirectionClear("UP", target, obstacles) then
 			Carter:moveUp()
 		end
 	end
 	if input:down("down", timestep) then
-		if isDirectionClear("DOWN", Carter.top, Carter.right, Carter.bottom, Carter.left) then
+		target = Carter:getBounds()
+		obstacle = Tomb:getBounds()
+		if collision.isDirectionClear("DOWN", target, obstacles) then
 			Carter:moveDown()
 		end
 	end
@@ -110,11 +141,14 @@ function love.draw()
 		Game_Playfield.left
 	)
 	Tomb:draw()
+	Tomb2:draw()
 	playerInfo = "Player X: " .. Carter.x .. " Y: " .. Carter.y
 	obstacleInfo = "Obstacle X: " .. Tomb.x .. " Y: " .. Tomb.y
+	playerDimensions = "Player width: " .. Carter.width .. " height: " .. Carter.height
 
 	love.graphics.print(playerInfo, 10, 10)
 	love.graphics.print(obstacleInfo, 10, 25)
+	love.graphics.print(playerDimensions, 10, 40)
 
-	love.graphics.rectangle("line", Carter.x, Carter.y, Carter.width, Carter.height)
+	-- love.graphics.rectangle("line", Carter.x, Carter.y, Carter.width, Carter.height)
 end

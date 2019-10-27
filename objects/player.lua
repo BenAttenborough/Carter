@@ -3,7 +3,8 @@ Object = require "/libs/classic/classic"
 Player = Object:extend()
 
 function Player:new(x, y, playfield)
-	self.graphic = love.graphics.newImage("graphics/carter.png")
+	-- self.graphic = love.graphics.newImage("graphics/carter.png")
+	self.graphic = love.graphics.newImage("graphics/player.png")
 	self.x = x or 0
 	self.y = y or 0
 	self.speed = 5
@@ -52,32 +53,11 @@ function Player:moveDown()
 	end
 end
 
-function isDirectionClear(x, y)
-	-- print(Tomb.x)
-
-	-- x axis = 10 to 70
-	-- y axis = 10 to 180
-	if x >= 50 and x <= 120 then
-		if y >= 50 and y <= 180 then
-			return false
-		end
-	end
-	return true
+function Player:getBounds()
+	return {
+		top = self.top,
+		right = self.right,
+		bottom = self.bottom,
+		left = self.left
+	}
 end
-
--- function Player:listenForInput()
--- 	if input:down("right", timestep) then
--- 		if isDirectionClear(self.x + self.width, self.y + self.height) then
--- 			Carter:moveRight()
--- 		end
--- 	end
--- 	if input:down("left", timestep) then
--- 		Carter:moveLeft()
--- 	end
--- 	if input:down("up", timestep) then
--- 		Carter:moveUp()
--- 	end
--- 	if input:down("down", timestep) then
--- 		Carter:moveDown()
--- 	end
--- end
