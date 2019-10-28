@@ -29,6 +29,8 @@ function isOnCol(target, path)
 end
 
 function love.load()
+	-- timestep = 0.1
+	locked = false
 	bindInputs()
 	Game_Playfield = Playfield(0, 800, 600, 0)
 	Carter = Player(10, 100, Game_Playfield)
@@ -39,25 +41,20 @@ function love.load()
 		Tomb2
 	}
 	rows = {
-		RowCreator(10, 100),
-		RowCreator(10, 200),
-		RowCreator(10, 300),
-		RowCreator(10, 400),
-		RowCreator(10, 500)
+		RowCreator(0, 0),
+		RowCreator(0, 120),
+		RowCreator(0, 240),
+		RowCreator(0, 360),
+		RowCreator(0, 480)
 	}
 	cols = {
-		ColCreator(10, 100),
-		ColCreator(110, 100),
-		ColCreator(210, 100),
-		ColCreator(310, 100),
-		ColCreator(410, 100),
-		ColCreator(510, 100)
+		ColCreator(0, 0),
+		ColCreator(120, 0),
+		ColCreator(240, 0),
+		ColCreator(360, 0),
+		ColCreator(480, 0),
+		ColCreator(600, 0)
 	}
-
-	col1 = PathCreator(10, 90, 70, 400)
-	col2 = ColCreator(110, 90)
-	row1message = "True"
-	col1message = "True"
 	allowHorz = true
 	allowVert = true
 end
@@ -81,42 +78,54 @@ function checkColPos(xcols, target)
 end
 
 function love.update(dt)
+	locked = false
 	if allowHorz then
-		if input:down("right", timestep) then
+		if input:down("right", timestep) and not locked then
+			locked = true
 			target = Carter:getBounds()
 			obstacle = Tomb:getBounds()
-			if collision.isDirectionClear("RIGHT", target, obstacles) then
-				Carter:moveRight()
-			end
+			-- if collision.isDirectionClear("RIGHT", target, obstacles) then
+			-- 	Carter:moveRight()
+			-- end
+			Carter:moveRight()
 			allowHorz = checkRowPos(rows, target)
 			allowVert = checkColPos(cols, target)
 		end
-		if input:down("left", timestep) then
+		if input:down("left", timestep) and not locked then
+			locked = true
+
 			target = Carter:getBounds()
 			obstacle = Tomb:getBounds()
-			if collision.isDirectionClear("LEFT", target, obstacles) then
-				Carter:moveLeft()
-			end
+			-- if collision.isDirectionClear("LEFT", target, obstacles) then
+			-- 	Carter:moveLeft()
+			-- end
+			Carter:moveLeft()
 			allowHorz = checkRowPos(rows, target)
 			allowVert = checkColPos(cols, target)
 		end
 	end
 	if allowVert then
-		if input:down("up", timestep) then
+		if input:down("up", timestep) and not locked then
+			locked = true
+
 			target = Carter:getBounds()
 			obstacle = Tomb:getBounds()
-			if collision.isDirectionClear("UP", target, obstacles) then
-				Carter:moveUp()
-			end
+			-- if collision.isDirectionClear("UP", target, obstacles) then
+			-- 	Carter:moveUp()
+			-- end
+			Carter:moveUp()
 			allowHorz = checkRowPos(rows, target)
 			allowVert = checkColPos(cols, target)
 		end
-		if input:down("down", timestep) then
+		if input:down("down", timestep) and not locked then
+			locked = true
+
 			target = Carter:getBounds()
 			obstacle = Tomb:getBounds()
-			if collision.isDirectionClear("DOWN", target, obstacles) then
-				Carter:moveDown()
-			end
+			-- if collision.isDirectionClear("DOWN", target, obstacles) then
+			-- 	Carter:moveDown()
+			-- end
+			Carter:moveDown()
 			allowHorz = checkRowPos(rows, target)
 			allowVert = checkColPos(cols, target)
 		end
@@ -125,7 +134,6 @@ end
 
 function love.draw()
 	love.graphics.setBackgroundColor(0.8, 0.8, 0.8, 1)
-	love.graphics.draw(Carter.graphic, Carter.x, Carter.y)
 	love.graphics.line(
 		Game_Playfield.top,
 		Game_Playfield.left,
@@ -150,6 +158,8 @@ function love.draw()
 	for i, v in ipairs(cols) do
 		v:draw()
 	end
+	love.graphics.draw(Carter.graphic, Carter.x, Carter.y)
+
 	playerInfo = "Player X: " .. Carter.x .. " Y: " .. Carter.y
 	obstacleInfo = "Obstacle X: " .. Tomb.x .. " Y: " .. Tomb.y
 	playerDimensions = "Player width: " .. Carter.width .. " height: " .. Carter.height
