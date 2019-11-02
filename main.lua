@@ -28,18 +28,7 @@ function isOnCol(target, path)
 	return false
 end
 
-function love.load()
-	-- timestep = 0.1
-	locked = false
-	bindInputs()
-	Game_Playfield = Playfield(0, 800, 600, 0)
-	Carter = Player(10, 100, Game_Playfield)
-	Tomb = TombCreator(100, 200, 50, 100)
-	Tomb2 = TombCreator(300, 200, 50, 100)
-	obstacles = {
-		Tomb,
-		Tomb2
-	}
+function createPlayfield()
 	rows = {
 		RowCreator(0, 0),
 		RowCreator(0, 120),
@@ -55,6 +44,22 @@ function love.load()
 		ColCreator(480, 0),
 		ColCreator(600, 0)
 	}
+	return rows, cols
+end
+
+function love.load()
+	-- timestep = 0.1
+	locked = false
+	bindInputs()
+	Game_Playfield = Playfield(0, 800, 600, 0)
+	Carter = Player(10, 100, Game_Playfield)
+	-- Tomb = TombCreator(100, 200, 50, 100)
+	-- Tomb2 = TombCreator(300, 200, 50, 100)
+	-- obstacles = {
+	-- 	Tomb,
+	-- 	Tomb2
+	-- }
+	rows, cols = createPlayfield()
 	allowHorz = true
 	allowVert = true
 end
@@ -83,7 +88,7 @@ function love.update(dt)
 		if input:down("right", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			obstacle = Tomb:getBounds()
+			-- obstacle = Tomb:getBounds()
 			-- if collision.isDirectionClear("RIGHT", target, obstacles) then
 			-- 	Carter:moveRight()
 			-- end
@@ -95,7 +100,7 @@ function love.update(dt)
 			locked = true
 
 			target = Carter:getBounds()
-			obstacle = Tomb:getBounds()
+			-- obstacle = Tomb:getBounds()
 			-- if collision.isDirectionClear("LEFT", target, obstacles) then
 			-- 	Carter:moveLeft()
 			-- end
@@ -109,7 +114,7 @@ function love.update(dt)
 			locked = true
 
 			target = Carter:getBounds()
-			obstacle = Tomb:getBounds()
+			-- obstacle = Tomb:getBounds()
 			-- if collision.isDirectionClear("UP", target, obstacles) then
 			-- 	Carter:moveUp()
 			-- end
@@ -121,7 +126,7 @@ function love.update(dt)
 			locked = true
 
 			target = Carter:getBounds()
-			obstacle = Tomb:getBounds()
+			-- obstacle = Tomb:getBounds()
 			-- if collision.isDirectionClear("DOWN", target, obstacles) then
 			-- 	Carter:moveDown()
 			-- end
@@ -146,8 +151,8 @@ function love.draw()
 		Game_Playfield.top,
 		Game_Playfield.left
 	)
-	Tomb:draw()
-	Tomb2:draw()
+	-- Tomb:draw()
+	-- Tomb2:draw()
 	-- row1:draw()
 	-- row2:draw()
 	-- row3:draw()
@@ -161,11 +166,11 @@ function love.draw()
 	love.graphics.draw(Carter.graphic, Carter.x, Carter.y)
 
 	playerInfo = "Player X: " .. Carter.x .. " Y: " .. Carter.y
-	obstacleInfo = "Obstacle X: " .. Tomb.x .. " Y: " .. Tomb.y
+	-- obstacleInfo = "Obstacle X: " .. Tomb.x .. " Y: " .. Tomb.y
 	playerDimensions = "Player width: " .. Carter.width .. " height: " .. Carter.height
 
 	love.graphics.print(playerInfo, 10, 10)
-	love.graphics.print(obstacleInfo, 10, 25)
+	-- love.graphics.print(obstacleInfo, 10, 25)
 	horzMes = ""
 	if allowHorz then
 		horzMes = "True"
