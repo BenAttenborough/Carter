@@ -1,9 +1,11 @@
 Object = require "/libs/classic/classic"
 require "/libs/Colorized-for-Love/colorize"
 
-PathCreator = Object:extend()
-RowCreator = Object:extend()
-ColCreator = Object:extend()
+local M = {}
+
+local PathCreator = Object:extend()
+M.RowCreator = Object:extend()
+M.ColCreator = Object:extend()
 
 function PathCreator:new(x, y, width, height)
 	self.x = x
@@ -29,7 +31,7 @@ function PathCreator:getBounds()
 	}
 end
 
-function RowCreator:new(x, y)
+function M.RowCreator:new(x, y)
 	self.x = x
 	self.y = y
 	self.width = 655
@@ -40,15 +42,14 @@ function RowCreator:new(x, y)
 	self.left = self.x
 end
 
-function RowCreator:draw()
-	-- print("color", love.graphics.getColor())
+function M.RowCreator:draw()
 	r, g, b, a = love.graphics.getColor()
 	love.graphics.setColor(rgba(77, 58, 6))
 	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	love.graphics.setColor(r, g, b, a)
 end
 
-function RowCreator:getBounds()
+function M.RowCreator:getBounds()
 	return {
 		top = self.top,
 		right = self.right,
@@ -57,7 +58,7 @@ function RowCreator:getBounds()
 	}
 end
 
-function ColCreator:new(x, y)
+function M.ColCreator:new(x, y)
 	self.x = x
 	self.y = y
 	self.width = 55
@@ -68,14 +69,14 @@ function ColCreator:new(x, y)
 	self.left = self.x
 end
 
-function ColCreator:draw()
+function M.ColCreator:draw()
 	r, g, b, a = love.graphics.getColor()
 	love.graphics.setColor(rgba(77, 58, 6))
 	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	love.graphics.setColor(r, g, b, a)
 end
 
-function ColCreator:getBounds()
+function M.ColCreator:getBounds()
 	return {
 		top = self.top,
 		right = self.right,
@@ -83,3 +84,5 @@ function ColCreator:getBounds()
 		left = self.left
 	}
 end
+
+return M
