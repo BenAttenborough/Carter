@@ -20,7 +20,7 @@ local function createPlayfield()
 		ColCreator(480, 0),
 		ColCreator(600, 0)
 	}
-	return rows, cols
+	return {rows = rows, cols = cols}
 end
 
 return createPlayfield

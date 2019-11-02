@@ -20,65 +20,15 @@ local playerMovement = require "/utilities/playerMovement"
 
 local Game_Playfield = Playfield(0, 800, 600, 0)
 local Carter = Player(10, 100, Game_Playfield)
-local rows, cols = CreatePlayableArea()
+-- local rows, cols = CreatePlayableArea()
+local playableArea = CreatePlayableArea()
 
 function love.load()
 	bindInputs()
 end
 
--- function checkRowPos(xrows, target)
--- 	for i, v in ipairs(xrows) do
--- 		if isOnRow(target, v) then
--- 			return true
--- 		end
--- 	end
--- end
-
--- function checkColPos(xcols, target)
--- 	for i, v in ipairs(xcols) do
--- 		if isOnCol(target, v) then
--- 			return true
--- 		end
--- 	end
--- end
-
 function love.update(dt)
-	-- playerMovement(allowedDirections, Carter, rows, cols)
-	playerMovement(Carter, rows, cols)
-	-- locked = false
-	-- if allowHorz then
-	-- 	if input:down("right", timestep) and not locked then
-	-- 		locked = true
-	-- 		target = Carter:getBounds()
-	-- 		Carter:moveRight()
-	-- 		allowHorz = checkRowPos(rows, target)
-	-- 		allowVert = checkColPos(cols, target)
-	-- 	end
-	-- 	if input:down("left", timestep) and not locked then
-	-- 		locked = true
-	-- 		target = Carter:getBounds()
-	-- 		Carter:moveLeft()
-	-- 		allowHorz = checkRowPos(rows, target)
-	-- 		allowVert = checkColPos(cols, target)
-	-- 	end
-	-- end
-	-- if allowVert then
-	-- 	if input:down("up", timestep) and not locked then
-	-- 		locked = true
-
-	-- 		target = Carter:getBounds()
-	-- 		Carter:moveUp()
-	-- 		allowHorz = checkRowPos(rows, target)
-	-- 		allowVert = checkColPos(cols, target)
-	-- 	end
-	-- 	if input:down("down", timestep) and not locked then
-	-- 		locked = true
-	-- 		target = Carter:getBounds()
-	-- 		Carter:moveDown()
-	-- 		allowHorz = checkRowPos(rows, target)
-	-- 		allowVert = checkColPos(cols, target)
-	-- 	end
-	-- end
+	playerMovement(Carter, playableArea)
 end
 
 function love.draw()
@@ -95,10 +45,10 @@ function love.draw()
 		Game_Playfield.top,
 		Game_Playfield.left
 	)
-	for i, v in ipairs(rows) do
+	for i, v in ipairs(playableArea.rows) do
 		v:draw()
 	end
-	for i, v in ipairs(cols) do
+	for i, v in ipairs(playableArea.cols) do
 		v:draw()
 	end
 	love.graphics.draw(Carter.graphic, Carter.x, Carter.y)
