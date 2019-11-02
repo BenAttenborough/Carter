@@ -20,7 +20,16 @@ local function createPlayfield()
 		ColCreator(480, 0),
 		ColCreator(600, 0)
 	}
-	return {rows = rows, cols = cols}
+	local playableArea = {rows = rows, cols = cols}
+	function playableArea.draw()
+		for i, v in ipairs(rows) do
+			v:draw()
+		end
+		for i, v in ipairs(cols) do
+			v:draw()
+		end
+	end
+	return playableArea
 end
 
 return createPlayfield
