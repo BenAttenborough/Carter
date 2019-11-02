@@ -2,54 +2,70 @@ Object = require "/libs/classic/classic"
 
 Player = Object:extend()
 
-function Player:new(x, y, playfield)
+function Player:new(playerStartingPos, playfield)
 	-- self.graphic = love.graphics.newImage("graphics/carter.png")
 	self.graphic = love.graphics.newImage("graphics/player.png")
-	self.x = x or 0
-	self.y = y or 0
+	self.x = playerStartingPos.x or 0
+	self.y = playerStartingPos.y or 0
 	self.speed = 5
 	self.playfield = playfield
 	self.width = self.graphic:getWidth()
 	self.height = self.graphic:getHeight()
 	self.top = self.y
-	self.right = x + self.width
+	self.right = playerStartingPos.x + self.width
 	self.bottom = self.y + self.height
 	self.left = self.x
 end
 
 function Player:draw()
-	love.graphics.draw(self.graphic, self.x, self.x)
+	love.graphics.draw(self.graphic, self.x, self.y)
 end
 
-function Player:moveRight()
+function Player:moveRight(vert)
 	if (self.x < self.playfield.right - self.width) then
 		self.x = self.x + self.speed
 		self.right = self.right + self.speed
 		self.left = self.left + self.speed
+
+		self.y = vert + 5
+		self.top = vert + 5
+		self.bottom = vert + 5 + self.height
 	end
 end
 
-function Player:moveLeft()
+function Player:moveLeft(vert)
 	if (self.x > self.playfield.left) then
 		self.x = self.x - self.speed
 		self.left = self.left - self.speed
 		self.right = self.right - self.speed
+
+		self.y = vert + 5
+		self.top = vert + 5
+		self.bottom = vert + 5 + self.height
 	end
 end
 
-function Player:moveUp()
+function Player:moveUp(hort)
 	if (self.y > self.playfield.top) then
 		self.y = self.y - self.speed
 		self.top = self.top - self.speed
 		self.bottom = self.bottom - self.speed
+
+		self.x = hort + 10
+		self.left = hort + 10
+		self.right = hort + 10 + self.width
 	end
 end
 
-function Player:moveDown()
+function Player:moveDown(hort)
 	if (self.y < self.playfield.bottom - self.height) then
 		self.y = self.y + self.speed
 		self.bottom = self.bottom + self.speed
 		self.top = self.top + self.speed
+
+		self.x = hort + 10
+		self.left = hort + 10
+		self.right = hort + 10 + self.width
 	end
 end
 

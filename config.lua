@@ -1,3 +1,5 @@
+require "/libs/Colorized-for-Love/colorize"
+
 local config = {}
 
 config.playfield = {
@@ -6,5 +8,12 @@ config.playfield = {
 	bottom = 600,
 	left = 0
 }
+
+config.playerStartingPos = {
+	x = 5,
+	y = 5
+}
+
+config.backgroundColour = hex("#AAA")
 
 return config
