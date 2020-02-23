@@ -4,7 +4,7 @@ Player = Object:extend()
 
 function Player:new(playerStartingPos, playfield)
 	-- self.graphic = love.graphics.newImage("graphics/carter.png")
-	self.graphic = love.graphics.newImage("graphics/player.png")
+	self.graphic = love.graphics.newImage("graphics/carter2.png")
 	self.x = playerStartingPos.x or 0
 	self.y = playerStartingPos.y or 0
 	self.speed = 5
