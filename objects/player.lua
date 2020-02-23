@@ -21,15 +21,18 @@ function Player:draw()
 	love.graphics.draw(self.graphic, self.x, self.y)
 end
 
+local vertOffset = 15
+local hortOffset = 13
+
 function Player:moveRight(vert)
 	if (self.x < self.playfield.right - self.width) then
 		self.x = self.x + self.speed
 		self.right = self.right + self.speed
 		self.left = self.left + self.speed
 
-		self.y = vert + 5
-		self.top = vert + 5
-		self.bottom = vert + 5 + self.height
+		self.y = vert + vertOffset
+		self.top = vert + vertOffset
+		self.bottom = vert + vertOffset + self.height
 	end
 end
 
@@ -39,9 +42,9 @@ function Player:moveLeft(vert)
 		self.left = self.left - self.speed
 		self.right = self.right - self.speed
 
-		self.y = vert + 5
-		self.top = vert + 5
-		self.bottom = vert + 5 + self.height
+		self.y = vert + vertOffset
+		self.top = vert + vertOffset
+		self.bottom = vert + vertOffset + self.height
 	end
 end
 
@@ -51,9 +54,9 @@ function Player:moveUp(hort)
 		self.top = self.top - self.speed
 		self.bottom = self.bottom - self.speed
 
-		self.x = hort + 10
-		self.left = hort + 10
-		self.right = hort + 10 + self.width
+		self.x = hort + hortOffset
+		self.left = hort + hortOffset
+		self.right = hort + hortOffset + self.width
 	end
 end
 
@@ -63,9 +66,9 @@ function Player:moveDown(hort)
 		self.bottom = self.bottom + self.speed
 		self.top = self.top + self.speed
 
-		self.x = hort + 10
-		self.left = hort + 10
-		self.right = hort + 10 + self.width
+		self.x = hort + hortOffset
+		self.left = hort + hortOffset
+		self.right = hort + hortOffset + self.width
 	end
 end
 

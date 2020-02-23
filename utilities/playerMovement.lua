@@ -47,30 +47,30 @@ local function playerMovement(Carter, playableArea)
 	}
 	locked = false
 	if playableAreaPosition.h > 0 then
-		local testVert = playableArea.rows[playableAreaPosition.h].top
-		-- print("testVert", testVert)
+		local currentRowTop = playableArea.rows[playableAreaPosition.h].top
+		-- print("currentRowTop", currentRowTop)
 		if input:down("right", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			Carter:moveRight(testVert)
+			Carter:moveRight(currentRowTop)
 		end
 		if input:down("left", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			Carter:moveLeft(testVert)
+			Carter:moveLeft(currentRowTop)
 		end
 	end
 	if playableAreaPosition.v > 0 then
-		local testHort = playableArea.cols[playableAreaPosition.v].left
+		local currentColumnLeft = playableArea.cols[playableAreaPosition.v].left
 		if input:down("up", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			Carter:moveUp(testHort)
+			Carter:moveUp(currentColumnLeft)
 		end
 		if input:down("down", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			Carter:moveDown(testHort)
+			Carter:moveDown(currentColumnLeft)
 		end
 	end
 end

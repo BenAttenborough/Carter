@@ -34,8 +34,8 @@ end
 function M.RowCreator:new(x, y)
 	self.x = x
 	self.y = y
-	self.width = 655
-	self.height = 60
+	self.width = 800
+	self.height = 80
 	self.top = self.y
 	self.right = self.x + self.width
 	self.bottom = self.y + self.height
@@ -62,7 +62,7 @@ function M.ColCreator:new(x, y)
 	self.x = x
 	self.y = y
 	self.width = 55
-	self.height = 540
+	self.height = 600
 	self.top = self.y
 	self.right = self.x + self.width
 	self.bottom = self.y + self.height
