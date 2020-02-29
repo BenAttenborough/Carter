@@ -3,8 +3,7 @@ Object = require "/libs/classic/classic"
 Player = Object:extend()
 
 function Player:new(playerStartingPos, playfield)
-	-- self.graphic = love.graphics.newImage("graphics/carter.png")
-	self.graphic = love.graphics.newImage("graphics/carter2.png")
+	self.graphic = love.graphics.newImage("graphics/carter_down.png")
 	self.x = playerStartingPos.x or 0
 	self.y = playerStartingPos.y or 0
 	self.speed = 5
@@ -25,6 +24,8 @@ local vertOffset = 15
 local hortOffset = 13
 
 function Player:moveRight(vert)
+	self.graphic = love.graphics.newImage("graphics/carter_right.png")
+
 	if (self.x < self.playfield.right - self.width) then
 		self.x = self.x + self.speed
 		self.right = self.right + self.speed
@@ -37,6 +38,8 @@ function Player:moveRight(vert)
 end
 
 function Player:moveLeft(vert)
+	self.graphic = love.graphics.newImage("graphics/carter_left.png")
+
 	if (self.x > self.playfield.left) then
 		self.x = self.x - self.speed
 		self.left = self.left - self.speed
@@ -49,6 +52,8 @@ function Player:moveLeft(vert)
 end
 
 function Player:moveUp(hort)
+	self.graphic = love.graphics.newImage("graphics/carter_up.png")
+
 	if (self.y > self.playfield.top) then
 		self.y = self.y - self.speed
 		self.top = self.top - self.speed
@@ -61,6 +66,8 @@ function Player:moveUp(hort)
 end
 
 function Player:moveDown(hort)
+	self.graphic = love.graphics.newImage("graphics/carter_down.png")
+
 	if (self.y < self.playfield.bottom - self.height) then
 		self.y = self.y + self.speed
 		self.bottom = self.bottom + self.speed

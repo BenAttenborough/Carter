@@ -11,6 +11,8 @@ local backgroundColour = config.backgroundColour
 local Carter = Player(playerStartingPos, Game_Playfield)
 local playableArea = CreatePlayableArea()
 
+
+
 local function drawGame()
 	Game_Playfield.draw()
 	playableArea.draw()
@@ -26,6 +28,9 @@ end
 function love.load()
 	bindInputs()
 	love.graphics.setBackgroundColor(backgroundColour)
+	-- music = love.audio.newSource( '/libs/Indi.mp3', 'stream' )
+	-- music:setLooping( true ) --so it doesnt stop
+	-- music:play()
 end
 
 function love.update(dt)
