@@ -4,6 +4,7 @@ local CreatePlayableArea = require "utilities.CreatePlayableArea"
 local CreatePills = require "utilities.createPills"
 local playerMovement = require "utilities.playerMovement"
 local Game_Playfield = require "objects.playfield"
+local pillCollision = require "utilities.pillCollision"
 local config = require "config"
 
 local playerStartingPos = config.playerStartingPos
@@ -31,6 +32,8 @@ end
 function love.load()
 	bindInputs()
 	love.graphics.setBackgroundColor(backgroundColour)
+	love.window.setTitle( "Carter" )
+	print("Carter started")
 	-- music = love.audio.newSource( '/libs/Indi.mp3', 'stream' )
 	-- music:setLooping( true ) --so it doesnt stop
 	-- music:play()
@@ -38,7 +41,8 @@ end
 
 function love.update(dt)
 	playerMovement(Carter, playableArea)
-	lurker.update()
+	pillCollision(Carter, pills)
+	-- lurker.update()
 end
 
 function love.draw()
