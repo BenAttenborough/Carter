@@ -1,6 +1,7 @@
 local bindInputs = require "/utilities/bindInputs"
 local player = require "/objects/player"
 local CreatePlayableArea = require "/utilities/CreatePlayableArea"
+local CreatePills = require "/utilities/createPills"
 local playerMovement = require "/utilities/playerMovement"
 local Game_Playfield = require "/objects/playfield"
 local config = require "/config"
@@ -10,13 +11,14 @@ local backgroundColour = config.backgroundColour
 
 local Carter = Player(playerStartingPos, Game_Playfield)
 local playableArea = CreatePlayableArea()
-
-
+local pills = CreatePills()
 
 local function drawGame()
 	Game_Playfield.draw()
 	playableArea.draw()
 	Carter:draw()
+	-- CreatePills()
+	pills.draw()
 end
 
 local function drawDebug()
