@@ -1,4 +1,4 @@
-Object = require "/libs/classic/classic"
+Object = require "libs.classic.classic"
 
 Player = Object:extend()
 

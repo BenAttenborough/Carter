@@ -1,4 +1,4 @@
-local Input = require "../libs/boipushy/Input"
+local Input = require "libs.boipushy.Input"
 
 local function bindInputs()
 	input = Input()

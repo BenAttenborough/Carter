@@ -1,5 +1,5 @@
-Object = require "/libs/classic/classic"
-require "/libs/Colorized-for-Love/colorize"
+Object = require "libs.classic.classic"
+require "libs.Colorized-for-Love.colorize"
 
 local M = {}
 

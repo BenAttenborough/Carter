@@ -1,4 +1,4 @@
-path = require "../objects/path"
+path = require "objects.path"
 local RowCreator = path.RowCreator
 local ColCreator = path.ColCreator
 

@@ -1,4 +1,4 @@
-require "/libs/Colorized-for-Love/colorize"
+require "libs.Colorized-for-Love.colorize"
 
 local config = {}
 

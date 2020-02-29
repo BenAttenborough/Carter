@@ -1,5 +1,5 @@
-Object = require "/libs/classic/classic"
-require "/libs/Colorized-for-Love/colorize"
+Object = require "libs.classic.classic"
+require "libs.Colorized-for-Love.colorize"
 
 local M = {}
 
@@ -20,7 +20,6 @@ function M.PillCreator:draw()
     r, g, b, a = love.graphics.getColor()
 	love.graphics.setColor(rgba(0, 0, 0))
 	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-	-- love.graphics.rectangle("fill", 60, 60, 20, 20)
 	love.graphics.setColor(r, g, b, a)
 end
 

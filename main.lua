@@ -1,10 +1,10 @@
-local bindInputs = require "/utilities/bindInputs"
-local player = require "/objects/player"
-local CreatePlayableArea = require "/utilities/CreatePlayableArea"
-local CreatePills = require "/utilities/createPills"
-local playerMovement = require "/utilities/playerMovement"
-local Game_Playfield = require "/objects/playfield"
-local config = require "/config"
+local bindInputs = require "utilities.bindInputs"
+local player = require "objects.player"
+local CreatePlayableArea = require "utilities.CreatePlayableArea"
+local CreatePills = require "utilities.createPills"
+local playerMovement = require "utilities.playerMovement"
+local Game_Playfield = require "objects.playfield"
+local config = require "config"
 
 local playerStartingPos = config.playerStartingPos
 local backgroundColour = config.backgroundColour
@@ -13,11 +13,12 @@ local Carter = Player(playerStartingPos, Game_Playfield)
 local playableArea = CreatePlayableArea()
 local pills = CreatePills()
 
+lurker = require "lurker"
+
 local function drawGame()
 	Game_Playfield.draw()
 	playableArea.draw()
 	Carter:draw()
-	-- CreatePills()
 	pills.draw()
 end
 
@@ -37,6 +38,7 @@ end
 
 function love.update(dt)
 	playerMovement(Carter, playableArea)
+	lurker.update()
 end
 
 function love.draw()
