@@ -15,11 +15,16 @@ function M.PillCreator:new(x, y, name)
 	self.bottom = self.y + self.height
 	self.left = self.x
 	self.name = name
+	self.hit = false
 end
 
 function M.PillCreator:draw()
-    r, g, b, a = love.graphics.getColor()
-	love.graphics.setColor(rgba(0, 0, 0))
+	r, g, b, a = love.graphics.getColor()
+	if self.hit then 
+		love.graphics.setColor(rgba(255, 255, 255))
+	else
+		love.graphics.setColor(rgba(77, 58, 6))
+	end
 	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	love.graphics.setColor(r, g, b, a)
 end

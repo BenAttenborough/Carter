@@ -8,8 +8,9 @@ local function detectPillCollision(Carter, pills)
     for i, pill in ipairs(pills) do
         -- print(pill.x)
         if hasCollided(Carter, pill) then
-            print("Contact with pill")
-            print(pill.name)
+            -- print("Contact with pill")
+            -- print(pill.name)
+            pill.hit = true
         end
     end
 end
