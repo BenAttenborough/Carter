@@ -5,7 +5,7 @@ local M = {}
 
 M.PillCreator = Object:extend()
 
-function M.PillCreator:new(x, y)
+function M.PillCreator:new(x, y, name)
 	self.x = x
 	self.y = y
 	self.width = 20
@@ -14,6 +14,7 @@ function M.PillCreator:new(x, y)
 	self.right = self.x + self.width
 	self.bottom = self.y + self.height
 	self.left = self.x
+	self.name = name
 end
 
 function M.PillCreator:draw()
