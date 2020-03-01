@@ -6,7 +6,7 @@ function Player:new(playerStartingPos, playfield)
 	self.graphic = love.graphics.newImage("graphics/carter_down.png")
 	self.x = playerStartingPos.x or 0
 	self.y = playerStartingPos.y or 0
-	self.speed = 5
+	self.speed = 200
 	self.playfield = playfield
 	self.width = self.graphic:getWidth()
 	self.height = self.graphic:getHeight()
@@ -23,13 +23,13 @@ end
 local vertOffset = 15
 local hortOffset = 13
 
-function Player:moveRight(vert)
+function Player:moveRight(vert, dt)
 	self.graphic = love.graphics.newImage("graphics/carter_right.png")
 
 	if (self.x < self.playfield.right - self.width) then
-		self.x = self.x + self.speed
-		self.right = self.right + self.speed
-		self.left = self.left + self.speed
+		self.x = self.x + self.speed * dt
+		self.right = self.right + self.speed * dt
+		self.left = self.left + self.speed * dt
 
 		self.y = vert + vertOffset
 		self.top = vert + vertOffset
@@ -37,13 +37,13 @@ function Player:moveRight(vert)
 	end
 end
 
-function Player:moveLeft(vert)
+function Player:moveLeft(vert, dt)
 	self.graphic = love.graphics.newImage("graphics/carter_left.png")
 
 	if (self.x > self.playfield.left) then
-		self.x = self.x - self.speed
-		self.left = self.left - self.speed
-		self.right = self.right - self.speed
+		self.x = self.x - (self.speed * dt)
+		self.left = self.left - (self.speed * dt)
+		self.right = self.right - (self.speed * dt)
 
 		self.y = vert + vertOffset
 		self.top = vert + vertOffset
@@ -51,13 +51,13 @@ function Player:moveLeft(vert)
 	end
 end
 
-function Player:moveUp(hort)
+function Player:moveUp(hort, dt)
 	self.graphic = love.graphics.newImage("graphics/carter_up.png")
 
 	if (self.y > self.playfield.top) then
-		self.y = self.y - self.speed
-		self.top = self.top - self.speed
-		self.bottom = self.bottom - self.speed
+		self.y = self.y - self.speed * dt
+		self.top = self.top - self.speed * dt
+		self.bottom = self.bottom - self.speed * dt
 
 		self.x = hort + hortOffset
 		self.left = hort + hortOffset
@@ -65,13 +65,13 @@ function Player:moveUp(hort)
 	end
 end
 
-function Player:moveDown(hort)
+function Player:moveDown(hort, dt)
 	self.graphic = love.graphics.newImage("graphics/carter_down.png")
 
 	if (self.y < self.playfield.bottom - self.height) then
-		self.y = self.y + self.speed
-		self.bottom = self.bottom + self.speed
-		self.top = self.top + self.speed
+		self.y = self.y + self.speed * dt
+		self.bottom = self.bottom + self.speed * dt
+		self.top = self.top + self.speed * dt
 
 		self.x = hort + hortOffset
 		self.left = hort + hortOffset

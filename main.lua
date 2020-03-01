@@ -40,7 +40,7 @@ function love.load()
 end
 
 function love.update(dt)
-	playerMovement(Carter, playableArea)
+	playerMovement(Carter, playableArea, dt)
 	pillCollision(Carter, pills)
 	-- lurker.update()
 end

@@ -36,7 +36,11 @@ local function createPills()
 		for i, v in ipairs(pillRows) do
 			v:draw()
 		end
-	end
+    end
+    
+    function pillRows.collide(collidee)
+    end
+
 	return pillRows
 
 

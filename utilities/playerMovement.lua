@@ -39,7 +39,7 @@ local function convertNumToBool(num)
 	end
 end
 
-local function playerMovement(Carter, playableArea)
+local function playerMovement(Carter, playableArea, dt)
 	local target = Carter:getBounds()
 	local playableAreaPosition = {
 		h = checkRowPos(playableArea.rows, target),
@@ -52,12 +52,12 @@ local function playerMovement(Carter, playableArea)
 		if input:down("right", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			Carter:moveRight(currentRowTop)
+			Carter:moveRight(currentRowTop, dt)
 		end
 		if input:down("left", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			Carter:moveLeft(currentRowTop)
+			Carter:moveLeft(currentRowTop, dt)
 		end
 	end
 	if playableAreaPosition.v > 0 then
@@ -65,12 +65,12 @@ local function playerMovement(Carter, playableArea)
 		if input:down("up", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			Carter:moveUp(currentColumnLeft)
+			Carter:moveUp(currentColumnLeft, dt)
 		end
 		if input:down("down", timestep) and not locked then
 			locked = true
 			target = Carter:getBounds()
-			Carter:moveDown(currentColumnLeft)
+			Carter:moveDown(currentColumnLeft, dt)
 		end
 	end
 end
