@@ -6,6 +6,7 @@ local function bindInputs()
 	input:bind("left", "left")
 	input:bind("up", "up")
 	input:bind("down", "down")
+	input:bind("escape", function() love.event.quit() end )
 end
 
 return bindInputs
