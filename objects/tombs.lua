@@ -13,11 +13,16 @@ function M.TombCreator:new(x, y, width, height)
 	self.right = self.x + self.width
 	self.bottom = self.y + self.height
 	self.left = self.x
+	self.open = false
 end
 
 function M.TombCreator:draw()
 	r, g, b, a = love.graphics.getColor()
-	love.graphics.setColor(rgba(240, 0, 0))
+	if self.open then
+		love.graphics.setColor(rgba(240, 0, 0))
+	else
+		love.graphics.setColor(rgba(0, 0, 0))
+	end
 	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	love.graphics.setColor(r, g, b, a)
 end

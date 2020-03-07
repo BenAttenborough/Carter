@@ -44,7 +44,7 @@ end
 
 function love.update(dt)
 	playerMovement(Carter, playableArea, dt)
-	pillCollision(Carter, pills)
+	pillCollision(Carter, pills, tombs)
 	-- lurker.update()
 end
 
