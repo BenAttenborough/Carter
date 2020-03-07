@@ -15,44 +15,53 @@ local Carter = Player(playerStartingPos, Game_Playfield)
 local playableArea = CreatePlayableArea()
 local pills = CreatePills()
 local tombs = CreateTombs()
+score = 0
+revealNoise = love.audio.newSource("/libs/reveal.mp3", "stream")
 
 lurker = require "lurker"
 
 local function drawGame()
-	Game_Playfield.draw()
-	playableArea.draw()
-	pills.draw()
-	tombs.draw()
-	Carter:draw()
+    Game_Playfield.draw()
+    playableArea.draw()
+    pills.draw()
+    tombs.draw()
+    Carter:draw()
+end
+
+local function drawScore()
+    local scoreText = "Score: " .. score
+    love.graphics.print(scoreText, 340, 560)
 end
 
 local function drawDebug()
-	playerInfo = "Player X: " .. Carter.x .. " Y: " .. Carter.y
-	playerDimensions = "Player width: " .. Carter.width .. " height: " .. Carter.height
-	love.graphics.print(playerInfo, 10, 10)
+    playerInfo = "Player X: " .. Carter.x .. " Y: " .. Carter.y
+    playerDimensions = "Player width: " .. Carter.width .. " height: " ..
+                           Carter.height
+    love.graphics.print(playerInfo, 10, 10)
 end
 
 function love.load()
-	bindInputs()
-	love.graphics.setBackgroundColor(backgroundColour)
-	love.window.setTitle( "Carter" )
-	print("Carter started")
-	-- music = love.audio.newSource( '/libs/Indi.mp3', 'stream' )
-	-- music:setLooping( true ) --so it doesnt stop
-	-- music:play()
+    bindInputs()
+    love.graphics.setBackgroundColor(backgroundColour)
+    love.window.setTitle("Carter")
+    print("Carter started")
+    -- music = love.audio.newSource( '/libs/Indi.mp3', 'stream' )
+    -- music:setLooping( true ) --so it doesnt stop
+    -- music:play()
 end
 
 function love.update(dt)
-	playerMovement(Carter, playableArea, dt)
-	pillCollision(Carter, pills, tombs)
-	-- lurker.update()
+    playerMovement(Carter, playableArea, dt)
+    pillCollision(Carter, pills, tombs, score, revealNoise)
+    -- lurker.update()
 end
 
 function love.draw()
-	drawGame()
-	drawDebug()
-	-- r, g, b, a = love.graphics.getColor()
-	-- love.graphics.setColor(rgba(240, 0, 0))
-	-- love.graphics.rectangle("fill", 55, 80, 95, 50)
-	-- love.graphics.setColor(r, g, b, a)
+    drawGame()
+    drawDebug()
+    drawScore()
+    -- r, g, b, a = love.graphics.getColor()
+    -- love.graphics.setColor(rgba(240, 0, 0))
+    -- love.graphics.rectangle("fill", 55, 80, 95, 50)
+    -- love.graphics.setColor(r, g, b, a)
 end
