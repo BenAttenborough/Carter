@@ -10,17 +10,16 @@ local function revealTomb(tomb, revealNoise)
 end
 
 local function checkNeighbouringPills(pills, tombs, score, revealNoise)
-
     -- for rowIndex, pills in ipairs(rows) do
     -- for pillIndex, pill in ipairs(rowValue) do
     --     print("pillx: " .. pill.x)
     -- end
     for row = 1, 4 do
-        for col = 1, 4 do
+        for col = 1, 5 do
             -- print("rowValue" .. rowValue[i].hit)
             if pills[row][col].hit and pills[row][col + 1].hit and
                 pills[row + 1][col].hit and pills[row + 1][col + 1].hit and
-                tombs[row][col].open then
+                tombs[row][col].open == false then
                 revealTomb(tombs[row][col], revealNoise)
                 print("Reveal tomb " .. row .. " " .. col)
             end
