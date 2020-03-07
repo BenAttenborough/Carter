@@ -19,8 +19,8 @@ lurker = require "lurker"
 local function drawGame()
 	Game_Playfield.draw()
 	playableArea.draw()
-	Carter:draw()
 	pills.draw()
+	Carter:draw()
 end
 
 local function drawDebug()
@@ -48,4 +48,8 @@ end
 function love.draw()
 	drawGame()
 	drawDebug()
+	r, g, b, a = love.graphics.getColor()
+	love.graphics.setColor(rgba(240, 0, 0))
+	love.graphics.rectangle("fill", 55, 80, 95, 50)
+	love.graphics.setColor(r, g, b, a)
 end

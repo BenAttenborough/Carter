@@ -10,8 +10,8 @@ config.playfield = {
 }
 
 config.playerStartingPos = {
-	x = 5,
-	y = 5
+	x = 15,
+	y = 15
 }
 
 config.backgroundColour = hex("#AAA")

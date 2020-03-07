@@ -10,6 +10,8 @@ local function createPills()
     pillRowsStart = 20;
     pillRowsOffset = 20;
 
+    -- Need to do this better
+    -- As a grid of pills with x and y or row col recorded
     local pillRows = {
         PillCreator(17,30,"one"),
         PillCreator(165,30,"two"),

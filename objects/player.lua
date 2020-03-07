@@ -2,12 +2,19 @@ Object = require "libs.classic.classic"
 
 Player = Object:extend()
 
+local vertOffset = 15
+local hortOffset = 13
+
 function Player:new(playerStartingPos, playfield)
 	self.graphic = love.graphics.newImage("graphics/carter_down.png")
 	self.x = playerStartingPos.x or 0
 	self.y = playerStartingPos.y or 0
 	self.speed = 200
 	self.playfield = playfield
+	self.playfield.left = self.playfield.left + hortOffset
+	self.playfield.top = self.playfield.top + vertOffset
+	self.playfield.right = self.playfield.right - hortOffset
+	self.playfield.bottom = self.playfield.bottom - vertOffset
 	self.width = self.graphic:getWidth()
 	self.height = self.graphic:getHeight()
 	self.top = self.y
@@ -19,9 +26,6 @@ end
 function Player:draw()
 	love.graphics.draw(self.graphic, self.x, self.y)
 end
-
-local vertOffset = 15
-local hortOffset = 13
 
 function Player:moveRight(vert, dt)
 	self.graphic = love.graphics.newImage("graphics/carter_right.png")
