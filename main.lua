@@ -2,6 +2,7 @@ local bindInputs = require "utilities.bindInputs"
 local player = require "objects.player"
 local CreatePlayableArea = require "utilities.CreatePlayableArea"
 local CreatePills = require "utilities.createPills"
+local CreateTombs = require "utilities.createTombs"
 local playerMovement = require "utilities.playerMovement"
 local Game_Playfield = require "objects.playfield"
 local pillCollision = require "utilities.pillCollision"
@@ -13,6 +14,7 @@ local backgroundColour = config.backgroundColour
 local Carter = Player(playerStartingPos, Game_Playfield)
 local playableArea = CreatePlayableArea()
 local pills = CreatePills()
+local tombs = CreateTombs()
 
 lurker = require "lurker"
 
@@ -20,6 +22,7 @@ local function drawGame()
 	Game_Playfield.draw()
 	playableArea.draw()
 	pills.draw()
+	tombs.draw()
 	Carter:draw()
 end
 
@@ -48,8 +51,8 @@ end
 function love.draw()
 	drawGame()
 	drawDebug()
-	r, g, b, a = love.graphics.getColor()
-	love.graphics.setColor(rgba(240, 0, 0))
-	love.graphics.rectangle("fill", 55, 80, 95, 50)
-	love.graphics.setColor(r, g, b, a)
+	-- r, g, b, a = love.graphics.getColor()
+	-- love.graphics.setColor(rgba(240, 0, 0))
+	-- love.graphics.rectangle("fill", 55, 80, 95, 50)
+	-- love.graphics.setColor(r, g, b, a)
 end

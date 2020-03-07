@@ -1,8 +1,10 @@
 Object = require "libs.classic.classic"
 
-TombCreator = Object:extend()
+local M = {}
 
-function TombCreator:new(x, y, width, height)
+M.TombCreator = Object:extend()
+
+function M.TombCreator:new(x, y, width, height)
 	self.x = x
 	self.y = y
 	self.width = width
@@ -13,11 +15,14 @@ function TombCreator:new(x, y, width, height)
 	self.left = self.x
 end
 
-function TombCreator:draw()
+function M.TombCreator:draw()
+	r, g, b, a = love.graphics.getColor()
+	love.graphics.setColor(rgba(240, 0, 0))
 	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+	love.graphics.setColor(r, g, b, a)
 end
 
-function TombCreator:getBounds()
+function M.TombCreator:getBounds()
 	return {
 		top = self.top,
 		right = self.right,
@@ -25,3 +30,5 @@ function TombCreator:getBounds()
 		left = self.left
 	}
 end
+
+return M
