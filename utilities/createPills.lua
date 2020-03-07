@@ -51,7 +51,6 @@ local function createPills()
 
     function pillRows.draw()
         for i, v in ipairs(pillRows) do
-            -- print(i, v)
             for iInner, vInner in ipairs(v) do vInner:draw() end
         end
     end
