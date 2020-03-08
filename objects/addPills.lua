@@ -16,17 +16,32 @@ function M.PillCreator:new(x, y, name)
     self.left = self.x
     self.name = name
     self.hit = false
+    self.hitDirection = "DOWN"
 end
 
 function M.PillCreator:draw()
-    r, g, b, a = love.graphics.getColor()
     if self.hit then
-        love.graphics.setColor(rgba(255, 255, 255))
-    else
-        love.graphics.setColor(rgba(77, 58, 6))
+        if self.hitDirection == "UP" then
+            love.graphics.draw(love.graphics.newImage("graphics/steps_up.png"),
+                               self.x, self.y)
+        end
+        if self.hitDirection == "RIGHT" then
+            love.graphics.draw(love.graphics
+                                   .newImage("graphics/steps_right.png"),
+                               self.x, self.y)
+        end
+        if self.hitDirection == "DOWN" then
+            love.graphics.draw(
+                love.graphics.newImage("graphics/steps_down.png"), self.x,
+                self.y)
+        end
+        if self.hitDirection == "LEFT" then
+            love.graphics.draw(
+                love.graphics.newImage("graphics/steps_left.png"), self.x,
+                self.y)
+        end
+
     end
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-    love.graphics.setColor(r, g, b, a)
 end
 
 return M;
