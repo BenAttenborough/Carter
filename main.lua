@@ -49,11 +49,14 @@ end
 local M = {}
 M.testCreator = Object:extend()
 
-function M.testCreator:new(x, y, name)
+function M.testCreator:new(x, y, name, adjTombs)
     self.x = x
     self.y = y
     self.name = name
+    self.adjTombs = adjTombs
 end
+
+function printTable(tab) for i = 1, #tab do print(tab[i]) end end
 
 function love.load()
     bindInputs()
@@ -64,17 +67,68 @@ function love.load()
     -- music:setLooping( true ) --so it doesnt stop
     -- music:play()
 
-    local testRow = {}
-    for i = 1, 50 do
-        if i % 5 == 0 then
-            testRow[i] = M.testCreator(i, 1, "item X" .. i)
-        else
-            testRow[i] = M.testCreator(i, 1, "item " .. i)
-        end
-    end
-    for i = 1, 20 do print(testRow[i].name) end
+    -- local columnOffet = 2
+    -- local width = 30
+    -- local testRow = {}
+    -- for x = 1, width do
+    --     if x % columnOffet == 0 or x == 1 then
+    --         local adjTombs = {}
 
-    print("")
+    --         local firstTomb = math.floor(x / columnOffet)
+    --         local secondTomb = firstTomb + 1
+    --         if firstTomb > 0 then table.insert(adjTombs, firstTomb) end
+    --         if secondTomb < math.floor(width / columnOffet) then
+    --             table.insert(adjTombs, secondTomb)
+    --         end
+    --         -- print("adjTombs")
+    --         -- printTable(adjTombs)
+    --         testRow[x] = M.testCreator(x, 1, "item X" .. x, adjTombs)
+    --     else
+    --         local adjTombs = {}
+    --         table.insert(adjTombs, math.floor(x / columnOffet) + 1)
+    --         testRow[x] = M.testCreator(x, 1, "item " .. x, adjTombs)
+    --     end
+    -- end
+    -- for i = 1, 20 do
+    --     print(testRow[i].name)
+    --     output = " Adjacent cells: "
+    --     local adjTombs = testRow[i].adjTombs
+    --     -- print(#adjTombs)
+    --     for j = 1, #adjTombs do output = output .. adjTombs[j] end
+    --     print(output)
+    -- end
+
+    local width = 15
+    local offset = 3
+    local row = {}
+
+    for x = 0, width do
+
+        local item = ""
+        local tombNumber = math.floor(x / offset) + 1
+
+        if x % offset == 0 and x > 0 then
+            if x < width then
+                -- item = "(" .. tombNumber - 1 .. "," .. tombNumber .. ")"
+                item = {tombNumber - 1, tombNumber}
+            else
+                item = {tombNumber - 1}
+            end
+        else
+            -- print(x % offset .. " " .. tombNumber)
+            item = {tombNumber}
+        end
+        table.insert(row, item)
+    end
+
+    local output = ""
+
+    for i = 1, #row do
+        for j = 1, #row[i] do output = output .. row[i][j] end
+        output = output .. "|"
+    end
+
+    print(output)
 end
 
 function love.update(dt)
