@@ -73,12 +73,11 @@ function love.load()
     local grid = {}
 
     for y = 0, height do
-        local startingNumber = (math.floor(y / offset) + 1) * offset
-        -- print("startingNumber " .. startingNumber)
         local row = {}
-        -- x = 16
+        -- yFactor increases by 1 every three loops
         local yFactor = (math.floor(y / offset))
         print("yFactor " .. yFactor)
+        -- xCount increaes by 15 (iniWidth) every three loops
         local xCount = (yFactor * iniWidth) + 1
         print("xCount " .. xCount)
         local width = iniWidth * (yFactor + 1)
@@ -86,7 +85,6 @@ function love.load()
 
         for x = xCount, width do
             local item = ""
-            -- local factor = (x + 1) * startingNumber
             local tombNumber = (math.floor(x / offset) + 1)
             if x % offset == 0 and x > 0 then
                 if x < width then
@@ -95,7 +93,18 @@ function love.load()
                     item = {tombNumber - 1}
                 end
             else
-                item = {tombNumber}
+                -- 2, 5, 8, 11
+                if y % offset == 0 and y > 0 then
+
+                    item = {tombNumber - 5, tombNumber}
+
+                else
+                    if y == 2 or y == 5 or y == 8 or y == 11 or y == 14 then
+                        item = {tombNumber + 5, tombNumber}
+                    else
+                        item = {tombNumber}
+                    end
+                end
             end
             table.insert(row, item)
         end
