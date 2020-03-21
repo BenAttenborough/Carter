@@ -63,82 +63,30 @@ function love.load()
     love.graphics.setBackgroundColor(backgroundColour)
     love.window.setTitle("Carter")
     print("Carter started")
-    -- music = love.audio.newSource( '/libs/Indi.mp3', 'stream' )
-    -- music:setLooping( true ) --so it doesnt stop
-    -- music:play()
 
-    local iniWidth = 15
-    local height = 15
-    local offset = 3
-    local grid = {}
-
-    for y = 0, height do
-        local row = {}
-        -- yFactor increases by 1 every three loops
-        local yFactor = (math.floor(y / offset))
-        print("yFactor " .. yFactor)
-        -- xCount increaes by 15 (iniWidth) every three loops
-        local xCount = (yFactor * iniWidth) + 1
-        print("xCount " .. xCount)
-        local width = iniWidth * (yFactor + 1)
-        print("width " .. width)
-
-        for x = xCount, width do
-            local item = ""
-            local tombNumber = (math.floor(x / offset) + 1)
-            if x % offset == 0 and x > 0 then
-                if x < width then
-                    item = {tombNumber - 1, tombNumber}
-                else
-                    item = {tombNumber - 1}
-                end
+    -- prototype "tomb"
+    local tomb = {}
+    for row = 1, 3 do
+        tomb[row] = {} -- create a new row
+        for col = 1, 4 do
+            if row ~= 2 then
+                tomb[row][col] = "r" .. row .. "c" .. col .. "|"
             else
-                -- 2, 5, 8, 11
-                if y % offset == 0 and y > 0 then
-
-                    item = {tombNumber - 5, tombNumber}
-
+                if col ~= 2 and col ~= 3 then
+                    tomb[row][col] = "r" .. row .. "c" .. col .. "|"
                 else
-                    if y == 2 or y == 5 or y == 8 or y == 11 or y == 14 then
-                        item = {tombNumber + 5, tombNumber}
-                    else
-                        item = {tombNumber}
-                    end
+                    tomb[row][col] = "xxxx|"
                 end
             end
-            table.insert(row, item)
         end
-        table.insert(grid, row)
-
-        if y % offset == 0 then print(">>>> " .. y) end
     end
 
-    -- local output = ""
-
-    for gridIdx = 1, #grid do
-        local output = ""
-        for rowIdx = 1, #grid[gridIdx] do
-            for i = 1, #grid[gridIdx][rowIdx] do
-                output = output .. grid[gridIdx][rowIdx][i] .. ","
-            end
-            output = output .. "|"
-        end
-        print(output)
+    for row = 1, 3 do
+        line = ""
+        for col = 1, 4 do line = line .. tomb[row][col] end
+        print("Row " .. row .. ": " .. line)
     end
 
-    -- for i = 1, #row do
-    --     for j = 1, #row[i] do output = output .. row[i][j] end
-    --     output = output .. "|"
-    -- end
-
-    -- for y
-
-    -- for i = 1, #row do
-    --     for j = 1, #row[i] do output = output .. row[i][j] end
-    --     output = output .. "|"
-    -- end
-
-    -- print(output)
 end
 
 function love.update(dt)
