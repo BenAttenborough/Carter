@@ -1,29 +1,32 @@
 local bindInputs = require "utilities.bindInputs"
 local player = require "objects.player"
 local CreatePlayableArea = require "utilities.CreatePlayableArea"
-local CreatePills = require "utilities.createPills"
-local CreateTombs = require "utilities.createTombs"
+-- local CreatTombAreas = require "utilities.createTombAreas"
+-- local CreatePills = require "utilities.createPills"
+-- local CreateTombs = require "utilities.createTombs"
 local playerMovement = require "utilities.playerMovement"
 local Game_Playfield = require "objects.playfield"
-local pillCollision = require "utilities.pillCollision"
+-- local pillCollision = require "utilities.pillCollision"
 local config = require "config"
+-- print("config.tombArea.height", config.tombArea.height)
 
 local playerStartingPos = config.playerStartingPos
 local backgroundColour = config.backgroundColour
 
 local Carter = Player(playerStartingPos, Game_Playfield)
 local playableArea = CreatePlayableArea()
-local pills = CreatePills()
-local tombs = CreateTombs()
+local tombOne = require "utilities.createTombAreas"
+-- local pills = CreatePills()
+-- local tombs = CreateTombs()
 
-addTomb = require "objects.tombArea"
+-- addPills = require "objects.addPills"
+
+-- local PillCreator = addPills.PillCreator
+
+-- local TombCreator = addTomb.TombArea
+
 -- createTombAreas = require 
 -- local TombAreaCreator = addTomb.TombArea
-
-tombOne = addTomb(100, 100)
-
--- test
-Object = require "libs.classic.classic"
 
 score = 0
 revealNoise = love.audio.newSource("/libs/reveal.mp3", "stream")
@@ -33,8 +36,9 @@ revealNoise = love.audio.newSource("/libs/reveal.mp3", "stream")
 local function drawGame()
     Game_Playfield.draw()
     playableArea.draw()
-    pills.draw()
-    tombs.draw()
+    -- pills.draw()
+    -- tombs.draw()
+    tombOne:draw()
     Carter:draw()
 end
 
@@ -51,18 +55,7 @@ local function drawDebug()
     love.graphics.print(love.timer.getFPS(), 10, 10)
 end
 
--- Test
-local M = {}
-M.testCreator = Object:extend()
-
-function M.testCreator:new(x, y, name, adjTombs)
-    self.x = x
-    self.y = y
-    self.name = name
-    self.adjTombs = adjTombs
-end
-
-function printTable(tab) for i = 1, #tab do print(tab[i]) end end
+-- function printTable(tab) for i = 1, #tab do print(tab[i]) end end
 
 function love.load()
     bindInputs()
@@ -97,14 +90,11 @@ end
 
 function love.update(dt)
     playerMovement(Carter, playableArea, dt)
-    pillCollision(Carter, pills, tombs, score, revealNoise)
-    -- lurker.update()
+    -- pillCollision(Carter, pills, tombs, score, revealNoise)
 end
 
 function love.draw()
     drawGame()
     drawDebug()
     drawScore()
-    -- addTomb.draw()
-    tombOne.draw()
 end
