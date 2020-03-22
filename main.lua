@@ -16,6 +16,12 @@ local playableArea = CreatePlayableArea()
 local pills = CreatePills()
 local tombs = CreateTombs()
 
+addTomb = require "objects.tombArea"
+-- createTombAreas = require 
+-- local TombAreaCreator = addTomb.TombArea
+
+tombOne = addTomb(100, 100)
+
 -- test
 Object = require "libs.classic.classic"
 
@@ -91,7 +97,7 @@ end
 
 function love.update(dt)
     playerMovement(Carter, playableArea, dt)
-    -- pillCollision(Carter, pills, tombs, score, revealNoise)
+    pillCollision(Carter, pills, tombs, score, revealNoise)
     -- lurker.update()
 end
 
@@ -99,8 +105,6 @@ function love.draw()
     drawGame()
     drawDebug()
     drawScore()
-    -- r, g, b, a = love.graphics.getColor()
-    -- love.graphics.setColor(rgba(240, 0, 0))
-    -- love.graphics.rectangle("fill", 55, 80, 95, 50)
-    -- love.graphics.setColor(r, g, b, a)
+    -- addTomb.draw()
+    tombOne.draw()
 end
