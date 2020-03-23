@@ -15,7 +15,7 @@ local backgroundColour = config.backgroundColour
 
 local Carter = Player(playerStartingPos, Game_Playfield)
 local playableArea = CreatePlayableArea()
-local tombOne = require "utilities.createTombAreas"
+local drawTombs = require "utilities.createTombAreas"
 -- local pills = CreatePills()
 -- local tombs = CreateTombs()
 
@@ -38,7 +38,8 @@ local function drawGame()
     playableArea.draw()
     -- pills.draw()
     -- tombs.draw()
-    tombOne:draw()
+    -- tombOne:draw()
+    drawTombs()
     Carter:draw()
 end
 
@@ -64,27 +65,6 @@ function love.load()
     print("Carter started")
 
     -- prototype "tomb"
-    local tomb = {}
-    for row = 1, 3 do
-        tomb[row] = {} -- create a new row
-        for col = 1, 4 do
-            if row ~= 2 then
-                tomb[row][col] = "r" .. row .. "c" .. col .. "|"
-            else
-                if col ~= 2 and col ~= 3 then
-                    tomb[row][col] = "r" .. row .. "c" .. col .. "|"
-                else
-                    tomb[row][col] = "xxxx|"
-                end
-            end
-        end
-    end
-
-    for row = 1, 3 do
-        line = ""
-        for col = 1, 4 do line = line .. tomb[row][col] end
-        print("Row " .. row .. ": " .. line)
-    end
 
 end
 

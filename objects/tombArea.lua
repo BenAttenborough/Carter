@@ -18,12 +18,64 @@ function Tomb:draw()
     love.graphics.setColor(r, g, b, a)
 end
 
-TombArea = Object:extend()
+Pill = Object:extend()
 
--- function Point:new(x, y)
---     self.x = x or 0
---     self.y = y or 0
---   end
+function Pill:new(x, y)
+    self.x = x
+    self.y = y
+    self.graphic = love.graphics.newImage("graphics/steps_right.png")
+end
+
+function Pill:draw() love.graphics.draw(self.graphic, self.x, self.y) end
+
+function createPills(x, y)
+    local pills = {}
+
+    for row = 1, 3 do
+        pills[row] = {} -- create a new row
+        for col = 1, 4 do
+            if row ~= 2 then
+                -- pills[row][col] = Pill(row * 10, col * 10)
+                pills[row][col] = Pill(config.pillRowStart +
+                                           (config.pillRowOffset * (col - 1)),
+                                       config.pillColStart +
+                                           (config.pillColOffset * (row - 1)))
+            else
+                if col ~= 2 and col ~= 3 then
+                    pills[row][col] = Pill(
+                                          config.pillRowStart +
+                                              (config.pillRowOffset * (col - 1)),
+                                          config.pillColStart +
+                                              (config.pillColOffset * (row - 1)))
+                else
+                    pills[row][col] = false
+                end
+            end
+        end
+    end
+
+    return pills
+end
+
+Pills = Object:extend()
+
+function Pills:new(x, y)
+    self.x = x
+    self.y = y
+    self.pillsWrapper = createPills(x, y)
+end
+
+function Pills:draw()
+    for row = 1, 3 do
+        for col = 1, 4 do
+            if self.pillsWrapper[row][col] then
+                self.pillsWrapper[row][col]:draw()
+            end
+        end
+    end
+end
+
+TombArea = Object:extend()
 
 function TombArea:new(x, y)
     self.x = x
@@ -39,6 +91,7 @@ function TombArea:new(x, y)
     -- self.name = name
     -- self.hit = false
     -- self.hitDirection = "DOWN"
+    self.pills = Pills(x, y)
 end
 
 function TombArea:draw()
@@ -50,6 +103,11 @@ function TombArea:draw()
     love.graphics.setColor(r, g, b, a)
 
     self.tomb:draw()
+    self.pills:draw()
+
+    love.graphics.setColor(rgba(255, 255, 255))
+    love.graphics.rectangle("fill", self.x + 10, self.y + 10, 20, 20)
+    love.graphics.setColor(r, g, b, a)
 end
 
 return TombArea

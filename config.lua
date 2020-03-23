@@ -20,4 +20,13 @@ config.tombArea = {
 
 config.backgroundColour = hex("#AAA")
 
+config.playerWidth = 30
+config.playerHeight = 50
+
+config.pillRowStart = 13;
+-- config.pillRowStart = (config.column.width / 2) - (config.playerWidth / 2);
+config.pillRowOffset = 75;
+config.pillColStart = 15;
+config.pillColOffset = 65;
+
 return config
