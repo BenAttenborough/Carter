@@ -25,7 +25,7 @@ config.playerHeight = 50
 
 config.pillRowStart = 13;
 -- config.pillRowStart = (config.column.width / 2) - (config.playerWidth / 2);
-config.pillRowOffset = 75;
+config.pillRowOffset = 50;
 config.pillColStart = 15;
 config.pillColOffset = 65;
 

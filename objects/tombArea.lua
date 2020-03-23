@@ -95,8 +95,6 @@ function TombArea:new(x, y)
 end
 
 function TombArea:draw()
-    -- love.graphics.draw(love.graphics.newImage("graphics/steps_up.png"), self.x,
-    --                    self.y)
     r, g, b, a = love.graphics.getColor()
     love.graphics.setColor(rgba(255, 0, 0))
     love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
@@ -104,10 +102,6 @@ function TombArea:draw()
 
     self.tomb:draw()
     self.pills:draw()
-
-    love.graphics.setColor(rgba(255, 255, 255))
-    love.graphics.rectangle("fill", self.x + 10, self.y + 10, 20, 20)
-    love.graphics.setColor(r, g, b, a)
 end
 
 return TombArea
