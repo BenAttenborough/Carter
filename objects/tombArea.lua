@@ -86,6 +86,7 @@ function TombArea:new(x, y)
     self.right = self.x + self.width
     self.bottom = self.y + self.height
     self.left = self.x
+    self.penetrated = false
     self.tomb = Tomb(config.column.width, config.row.height, config.tomb.width,
                      config.tomb.height)
     -- self.name = name
@@ -96,12 +97,36 @@ end
 
 function TombArea:draw()
     r, g, b, a = love.graphics.getColor()
-    love.graphics.setColor(rgba(255, 0, 0))
-    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
-    love.graphics.setColor(r, g, b, a)
-
+    if self.penetrated then
+        love.graphics.setColor(rgba(255, 0, 0))
+        love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+        love.graphics.setColor(r, g, b, a)
+    end
     self.tomb:draw()
     self.pills:draw()
+end
+
+function CheckCollision(x1, y1, w1, h1, x2, y2, w2, h2)
+    return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
+end
+
+function TombArea:hasCollidedWith(item)
+    -- print("item.x" .. item.x)
+    -- print("item.y" .. item.y)
+    -- print("item.width" .. item.width)
+    -- print("item.height" .. item.height)
+
+    -- print("self.x" .. self.x)
+    -- print("self.y" .. self.y)
+    -- print("self.width" .. self.width)
+    -- print("self.height" .. self.height)
+
+    if CheckCollision(item.x, item.y, item.width, item.height, self.x, self.x,
+                      self.width, self.height) then
+        print("You've collided with tomb 1s area")
+    else
+        print("You've haven't collided with tomb 1s area")
+    end
 end
 
 return TombArea

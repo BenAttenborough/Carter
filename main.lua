@@ -15,7 +15,9 @@ local backgroundColour = config.backgroundColour
 
 local Carter = Player(playerStartingPos, Game_Playfield)
 local playableArea = CreatePlayableArea()
-local drawTombs = require "utilities.createTombAreas"
+local tombUtils = require "utilities.createTombAreas"
+local drawTombs = tombUtils.drawTombs
+local checkTombOneCollision = tombUtils.checkTombOneCollision
 -- local pills = CreatePills()
 -- local tombs = CreateTombs()
 
@@ -71,6 +73,7 @@ end
 function love.update(dt)
     playerMovement(Carter, playableArea, dt)
     -- pillCollision(Carter, pills, tombs, score, revealNoise)
+    checkTombOneCollision(Carter)
 end
 
 function love.draw()
