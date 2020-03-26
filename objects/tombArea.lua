@@ -20,13 +20,18 @@ end
 
 Pill = Object:extend()
 
-function Pill:new(x, y)
+function Pill:new(x, y, width, height)
     self.x = x
     self.y = y
     self.graphic = love.graphics.newImage("graphics/steps_right.png")
+    self.width = self.graphic:getWidth()
+    self.height = self.graphic:getHeight()
+    self.hit = false
 end
 
-function Pill:draw() love.graphics.draw(self.graphic, self.x, self.y) end
+function Pill:draw()
+    if self.hit then love.graphics.draw(self.graphic, self.x, self.y) end
+end
 
 function createPills(x, y)
     local pills = {}
@@ -63,6 +68,7 @@ function Pills:new(x, y)
     self.x = x
     self.y = y
     self.pillsWrapper = createPills(x, y)
+    self.count = 10
 end
 
 function Pills:draw()
@@ -70,6 +76,23 @@ function Pills:draw()
         for col = 1, 4 do
             if self.pillsWrapper[row][col] then
                 self.pillsWrapper[row][col]:draw()
+            end
+        end
+    end
+end
+
+function Pills:hasCollidedWith(item)
+    for row = 1, 3 do
+        for col = 1, 4 do
+            if self.pillsWrapper[row][col] then
+                if checkCollision(item, self.pillsWrapper[row][col]) then
+                    -- print("Carter has collided with pill " .. row .. " " .. col)
+                    if self.pillsWrapper[row][col].hit == false then
+                        self.pillsWrapper[row][col].hit = true
+                        self.count = self.count - 1
+                        print("self.count " .. self.count)
+                    end
+                end
             end
         end
     end
@@ -102,28 +125,22 @@ function TombArea:draw()
         love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
         love.graphics.setColor(r, g, b, a)
     end
-    self.tomb:draw()
+    if self.pills.count == 0 then self.tomb:draw() end
     self.pills:draw()
 end
 
-function CheckCollision(x1, y1, w1, h1, x2, y2, w2, h2)
-    return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
+function checkCollision(item1, item2)
+    return
+        item1.x < item2.x + item2.width and item2.x < item1.x + item1.width and
+            item1.y < item2.y + item2.height and item2.y < item1.y +
+            item1.height
 end
 
 function TombArea:hasCollidedWith(item)
-    -- print("item.x" .. item.x)
-    -- print("item.y" .. item.y)
-    -- print("item.width" .. item.width)
-    -- print("item.height" .. item.height)
-
-    -- print("self.x" .. self.x)
-    -- print("self.y" .. self.y)
-    -- print("self.width" .. self.width)
-    -- print("self.height" .. self.height)
-
-    if CheckCollision(item.x, item.y, item.width, item.height, self.x, self.x,
-                      self.width, self.height) then
-        print("You've collided with tomb 1s area")
+    if checkCollision(item, self) then
+        -- print("You've collided with tomb 1s area")
+        -- print(self.pills)
+        self.pills:hasCollidedWith(item, self)
     else
         print("You've haven't collided with tomb 1s area")
     end
