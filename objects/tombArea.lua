@@ -41,16 +41,16 @@ function createPills(x, y)
         for col = 1, 4 do
             if row ~= 2 then
                 -- pills[row][col] = Pill(row * 10, col * 10)
-                pills[row][col] = Pill(config.pillRowStart +
+                pills[row][col] = Pill(x + config.pillRowStart +
                                            (config.pillRowOffset * (col - 1)),
-                                       config.pillColStart +
+                                       y + config.pillColStart +
                                            (config.pillColOffset * (row - 1)))
             else
                 if col ~= 2 and col ~= 3 then
                     pills[row][col] = Pill(
-                                          config.pillRowStart +
+                                          x + config.pillRowStart +
                                               (config.pillRowOffset * (col - 1)),
-                                          config.pillColStart +
+                                          y + config.pillColStart +
                                               (config.pillColOffset * (row - 1)))
                 else
                     pills[row][col] = false
@@ -110,8 +110,8 @@ function TombArea:new(x, y)
     self.bottom = self.y + self.height
     self.left = self.x
     self.penetrated = false
-    self.tomb = Tomb(config.column.width, config.row.height, config.tomb.width,
-                     config.tomb.height)
+    self.tomb = Tomb(x + config.column.width, y + config.row.height,
+                     config.tomb.width, config.tomb.height)
     -- self.name = name
     -- self.hit = false
     -- self.hitDirection = "DOWN"
@@ -120,11 +120,11 @@ end
 
 function TombArea:draw()
     r, g, b, a = love.graphics.getColor()
-    if self.penetrated then
-        love.graphics.setColor(rgba(255, 0, 0))
-        love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
-        love.graphics.setColor(r, g, b, a)
-    end
+    -- if self.penetrated then
+    -- love.graphics.setColor(rgba(255, 0, 0))
+    -- love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+    -- love.graphics.setColor(r, g, b, a)
+    -- end
     if self.pills.count == 0 then self.tomb:draw() end
     self.pills:draw()
 end
@@ -141,8 +141,6 @@ function TombArea:hasCollidedWith(item)
         -- print("You've collided with tomb 1s area")
         -- print(self.pills)
         self.pills:hasCollidedWith(item, self)
-    else
-        print("You've haven't collided with tomb 1s area")
     end
 end
 
