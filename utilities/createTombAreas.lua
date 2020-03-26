@@ -1,20 +1,17 @@
 local TombCreator = require "objects.tombArea"
 local config = require "config"
 
--- Start off by creating single tomb
-tombOne = TombCreator(0, 0)
-tombTwo = TombCreator(150, 0)
-
 local M = {}
 
+local tombs = {}
+for i = 0, 4 do table.insert(tombs, TombCreator(config.column.offset * i, 0)) end
+
 function M.drawTombs()
-    tombOne:draw()
-    tombTwo:draw()
+    for index, value in ipairs(tombs) do tombs[index]:draw() end
 end
 
 function M.checkTombOneCollision(item)
-    tombOne:hasCollidedWith(item)
-    tombTwo:hasCollidedWith(item)
+    for index, value in ipairs(tombs) do tombs[index]:hasCollidedWith(item) end
 end
 
 return M
