@@ -24,13 +24,28 @@ function Pill:new(x, y, width, height)
     self.x = x
     self.y = y
     self.graphic = love.graphics.newImage("graphics/steps_right.png")
+    self.graphicUp = love.graphics.newImage("graphics/steps_up.png")
+    self.graphicDown = love.graphics.newImage("graphics/steps_down.png")
+    self.graphicLeft = love.graphics.newImage("graphics/steps_left.png")
+    self.graphicRight = love.graphics.newImage("graphics/steps_right.png")
     self.width = self.graphic:getWidth()
     self.height = self.graphic:getHeight()
     self.hit = false
+    self.hitDirection = "DOWN"
 end
 
 function Pill:draw()
-    if self.hit then love.graphics.draw(self.graphic, self.x, self.y) end
+    if self.hit then
+        if self.hitDirection == "UP" then
+            love.graphics.draw(self.graphicUp, self.x, self.y)
+        elseif self.hitDirection == "DOWN" then
+            love.graphics.draw(self.graphicDown, self.x, self.y)
+        elseif self.hitDirection == "LEFT" then
+            love.graphics.draw(self.graphicLeft, self.x, self.y)
+        elseif self.hitDirection == "RIGHT" then
+            love.graphics.draw(self.graphicRight, self.x, self.y)
+        end
+    end
 end
 
 function createPills(x, y)
@@ -90,6 +105,7 @@ function Pills:hasCollidedWith(item)
                         self.pillsWrapper[row][col].hit = true
                         self.count = self.count - 1
                     end
+                    self.pillsWrapper[row][col].hitDirection = item.direction
                 end
             end
         end
