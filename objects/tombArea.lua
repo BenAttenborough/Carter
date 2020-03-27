@@ -86,11 +86,9 @@ function Pills:hasCollidedWith(item)
         for col = 1, 4 do
             if self.pillsWrapper[row][col] then
                 if checkCollision(item, self.pillsWrapper[row][col]) then
-                    -- print("Carter has collided with pill " .. row .. " " .. col)
                     if self.pillsWrapper[row][col].hit == false then
                         self.pillsWrapper[row][col].hit = true
                         self.count = self.count - 1
-                        print("self.count " .. self.count)
                     end
                 end
             end
