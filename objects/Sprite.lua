@@ -30,62 +30,6 @@ end
 
 function Sprite:draw() love.graphics.draw(self.graphicCurrent, self.x, self.y) end
 
-function Sprite:moveRight(vert, dt)
-    self.graphicCurrent = self.graphicRight
-
-    if (self.x < self.playfield.right - self.width) then
-        self.x = self.x + self.speed * dt
-        self.right = self.right + self.speed * dt
-        self.left = self.left + self.speed * dt
-        self.y = vert + vertOffset
-        self.top = vert + vertOffset
-        self.bottom = vert + vertOffset + self.height
-        self.direction = "RIGHT"
-    end
-end
-
-function Sprite:moveLeft(vert, dt)
-    self.graphicCurrent = self.graphicLeft
-
-    if (self.x > self.playfield.left) then
-        self.x = self.x - (self.speed * dt)
-        self.left = self.left - (self.speed * dt)
-        self.right = self.right - (self.speed * dt)
-        self.y = vert + vertOffset
-        self.top = vert + vertOffset
-        self.bottom = vert + vertOffset + self.height
-        self.direction = "LEFT"
-    end
-end
-
-function Sprite:moveUp(hort, dt)
-    self.graphicCurrent = self.graphicUp
-
-    if (self.y > self.playfield.top) then
-        self.y = self.y - self.speed * dt
-        self.top = self.top - self.speed * dt
-        self.bottom = self.bottom - self.speed * dt
-        self.x = hort + hortOffset
-        self.left = hort + hortOffset
-        self.right = hort + hortOffset + self.width
-        self.direction = "UP"
-    end
-end
-
-function Sprite:moveDown(hort, dt)
-    self.graphicCurrent = self.graphicDown
-
-    if (self.y < self.playfield.bottom - self.height) then
-        self.y = self.y + self.speed * dt
-        self.bottom = self.bottom + self.speed * dt
-        self.top = self.top + self.speed * dt
-        self.x = hort + hortOffset
-        self.left = hort + hortOffset
-        self.right = hort + hortOffset + self.width
-        self.direction = "DOWN"
-    end
-end
-
 function Sprite:getBounds()
     return {
         top = self.top,

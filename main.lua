@@ -7,8 +7,7 @@ local playerMovement = require "utilities.playerMovement"
 local Game_Playfield = require "objects.playfield"
 local config = require "config"
 
--- local Carter = Player(playerStartingPos, Game_Playfield)
-local Carter = Player(config.player, Game_Playfield)
+local player = Player(config.player, Game_Playfield)
 local mummy = Mummy(config.mummy, Game_Playfield)
 local playableArea = CreatePlayableArea()
 local tombUtils = require "utilities.createTombAreas"
@@ -21,7 +20,7 @@ local function drawGame()
     Game_Playfield.draw()
     playableArea.draw()
     drawTombs()
-    Carter:draw()
+    player:draw()
     mummy:draw()
 end
 
@@ -31,9 +30,9 @@ local function drawScore()
 end
 
 local function drawDebug()
-    playerInfo = "Player X: " .. Carter.x .. " Y: " .. Carter.y
-    playerDimensions = "Player width: " .. Carter.width .. " height: " ..
-                           Carter.height
+    playerInfo = "Player X: " .. player.x .. " Y: " .. player.y
+    playerDimensions = "Player width: " .. player.width .. " height: " ..
+                           player.height
     love.graphics.print(love.timer.getFPS(), 10, 10)
 end
 
@@ -45,8 +44,9 @@ function love.load()
 end
 
 function love.update(dt)
-    playerMovement(Carter, playableArea, dt)
-    checkTombOneCollision(Carter)
+    playerMovement(player, playableArea, dt)
+    checkTombOneCollision(player)
+    mummy:move(player, playableArea, dt)
 end
 
 function love.draw()
