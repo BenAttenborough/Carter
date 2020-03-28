@@ -4,8 +4,6 @@ local config = require "config"
 local RowCreator = path.RowCreator
 local ColCreator = path.ColCreator
 
--- local M = {}
-
 local function createPlayfield()
     rows = {
         RowCreator(0, 0), RowCreator(0, config.row.offset),

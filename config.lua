@@ -45,11 +45,14 @@ config.player = {
 
 -- Mummy
 config.mummy = {
-    startingPos = {x = 750, y = 550},
+    startingPos = {
+        x = config.playfield.right - 10 - 30,
+        y = config.playfield.bottom - 15 - 50
+    },
     startingSpeed = 100,
     graphic = {
-        up = config.graphicsDir .. "MummySprite_left.png",
-        down = config.graphicsDir .. "MummySprite_left.png",
+        up = config.graphicsDir .. "MummySprite_up.png",
+        down = config.graphicsDir .. "MummySprite_down.png",
         left = config.graphicsDir .. "MummySprite_left.png",
         right = config.graphicsDir .. "MummySprite_right.png"
     }
