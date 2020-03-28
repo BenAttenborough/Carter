@@ -7,10 +7,6 @@ local playerMovement = require "utilities.playerMovement"
 local Game_Playfield = require "objects.playfield"
 local config = require "config"
 
--- local playerStartingPos = config.playerStartingPos
-local mummyStartingPos = config.mummyStartingPos
-local backgroundColour = config.backgroundColour
-
 -- local Carter = Player(playerStartingPos, Game_Playfield)
 local Carter = Player(config.player, Game_Playfield)
 local mummy = Mummy(config.mummy, Game_Playfield)
@@ -43,7 +39,7 @@ end
 
 function love.load()
     bindInputs()
-    love.graphics.setBackgroundColor(backgroundColour)
+    love.graphics.setBackgroundColor(config.backgroundColour)
     love.window.setTitle("Carter")
     print("Carter started")
 end
