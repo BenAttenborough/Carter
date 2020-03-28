@@ -2,10 +2,11 @@ require "libs.Colorized-for-Love.colorize"
 
 local config = {}
 
+config.graphicsDir = "graphics/"
+
 config.playfield = {top = 0, right = 800, bottom = 600, left = 0}
 
-config.playerStartingPos = {x = 15, y = 15}
-config.mummyStartingPos = {x = 750, y = 550}
+-- config.playerStartingPos = {x = 15, y = 15}
 
 config.column = {height = 600, width = 55, offset = 150}
 config.row = {width = 800, height = 80, offset = 130}
@@ -29,5 +30,29 @@ config.pillRowStart = 13;
 config.pillRowOffset = 50;
 config.pillColStart = 15;
 config.pillColOffset = 65;
+
+-- Player
+config.player = {
+    startingPos = {x = 15, y = 15},
+    startingSpeed = 200,
+    graphic = {
+        up = config.graphicsDir .. "carter_up.png",
+        down = config.graphicsDir .. "carter_down.png",
+        left = config.graphicsDir .. "carter_left.png",
+        right = config.graphicsDir .. "carter_right.png"
+    }
+}
+
+-- Mummy
+config.mummy = {
+    startingPos = {x = 750, y = 550},
+    startingSpeed = 100,
+    graphic = {
+        up = config.graphicsDir .. "MummySprite_left.png",
+        down = config.graphicsDir .. "MummySprite_left.png",
+        left = config.graphicsDir .. "MummySprite_left.png",
+        right = config.graphicsDir .. "MummySprite_right.png"
+    }
+}
 
 return config

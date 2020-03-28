@@ -1,18 +1,19 @@
 local bindInputs = require "utilities.bindInputs"
-local player = require "objects.player"
+local Player = require "objects.Player"
 local Mummy = require "objects.Mummy"
+
 local CreatePlayableArea = require "utilities.CreatePlayableArea"
 local playerMovement = require "utilities.playerMovement"
 local Game_Playfield = require "objects.playfield"
 local config = require "config"
 
-local playerStartingPos = config.playerStartingPos
+-- local playerStartingPos = config.playerStartingPos
 local mummyStartingPos = config.mummyStartingPos
 local backgroundColour = config.backgroundColour
 
-local Carter = Player(playerStartingPos, Game_Playfield)
-local mummy = Mummy(mummyStartingPos, Game_Playfield,
-                    "graphics/MummySprite_left.png", 100)
+-- local Carter = Player(playerStartingPos, Game_Playfield)
+local Carter = Player(config.player, Game_Playfield)
+local mummy = Mummy(config.mummy, Game_Playfield)
 local playableArea = CreatePlayableArea()
 local tombUtils = require "utilities.createTombAreas"
 local drawTombs = tombUtils.drawTombs

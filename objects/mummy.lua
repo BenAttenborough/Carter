@@ -3,8 +3,8 @@ local Sprite = require "objects.Sprite"
 
 local Mummy = Sprite:extend()
 
-function Mummy:new(startingPos, playfield, graphic, iniSpeed)
-    Mummy.super.new(self, startingPos, playfield, graphic, iniSpeed)
-end
+function Mummy:new(config, playfield) Mummy.super.new(self, config, playfield) end
+
+-- function Mummy:move
 
 return Mummy
