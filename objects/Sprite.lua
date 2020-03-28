@@ -19,8 +19,8 @@ function Sprite:new(config, playfield)
     self.playfield.top = self.playfield.top + vertOffset
     self.playfield.right = self.playfield.right - hortOffset
     self.playfield.bottom = self.playfield.bottom - vertOffset
-    self.width = self.graphicUp:getWidth()
-    self.height = self.graphicUp:getHeight()
+    self.width = self.graphicCurrent:getWidth()
+    self.height = self.graphicCurrent:getHeight()
     self.top = self.y
     self.right = config.startingPos.x + self.width
     self.bottom = self.y + self.height

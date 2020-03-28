@@ -42,12 +42,26 @@ function Mummy:moveDown(dt)
     self.bottom = self.bottom + self.speed * dt
 end
 
+function Mummy:moveLeft(dt)
+    self.graphicCurrent = self.graphicLeft
+    self.x = self.x - self.speed * dt
+    self.left = self.left - self.speed * dt
+    self.right = self.right - self.speed * dt
+end
+
+function Mummy:moveRight(dt)
+    self.graphicCurrent = self.graphicRight
+    self.x = self.x + self.speed * dt
+    self.left = self.left + self.speed * dt
+    self.right = self.right + self.speed * dt
+end
+
 function Mummy:move(player, playableArea, dt)
     local rowPos = checkRowPos(playableArea.rows, self)
-    -- print("rowPos: " .. rowPos)
+    print("rowPos: " .. rowPos)
 
-    local colPos = checkRowPos(playableArea.rows, self)
-    -- print("colPos: " .. colPos)
+    local colPos = checkColPos(playableArea.cols, self)
+    print("colPos: " .. colPos)
 
     -- Calculate distances
     local playerDistanceX = 0
@@ -79,17 +93,40 @@ function Mummy:move(player, playableArea, dt)
         -- self:moveDown(dt)
     end
 
-    if playerDistanceX > playerDistanceY then
-        print("xPlayer is further " .. directionX .. " than " .. directionY)
-    else
-        print("Player is further " .. directionY .. " than " .. directionX)
-        -- up down
-        if directionY == "UP" then
-            self:moveUp(dt)
-        elseif directionY == "DOWN" then
-            self:moveDown(dt)
+    if rowPos > 0 and colPos > 0 then
+        if playerDistanceX > playerDistanceY then
+            -- print("xPlayer is further " .. directionX .. " than " .. directionY)
+            if directionX == "LEFT" then
+                self:moveLeft(dt)
+            elseif directionX == "RIGHT" then
+                self:moveRight(dt)
+            end
         end
+        if playerDistanceX < playerDistanceY then
+            -- print("Player is further " .. directionY .. " than " .. directionX)
+            -- up down
+            if directionY == "UP" then
+                self:moveUp(dt)
+            elseif directionY == "DOWN" then
+                self:moveDown(dt)
+            end
 
+        end
+    else
+        if rowPos > 0 then
+            -- move
+            if directionX == "LEFT" then
+                self:moveLeft(dt)
+            elseif directionX == "RIGHT" then
+                self:moveRight(dt)
+            end
+        elseif colPos > 0 then
+            if directionY == "UP" then
+                self:moveUp(dt)
+            elseif directionY == "DOWN" then
+                self:moveDown(dt)
+            end
+        end
     end
 
 end

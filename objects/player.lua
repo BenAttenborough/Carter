@@ -9,8 +9,7 @@ function Player:new(config, playfield) Player.super.new(self, config, playfield)
 
 function Player:moveRight(vert, dt)
     self.graphicCurrent = self.graphicRight
-
-    if (self.x < self.playfield.right - self.width) then
+    if (self.right < self.playfield.right + 10) then
         self.x = self.x + self.speed * dt
         self.right = self.right + self.speed * dt
         self.left = self.left + self.speed * dt
@@ -24,7 +23,7 @@ end
 function Player:moveLeft(vert, dt)
     self.graphicCurrent = self.graphicLeft
 
-    if (self.x > self.playfield.left) then
+    if (self.left > self.playfield.left - 10) then
         self.x = self.x - (self.speed * dt)
         self.left = self.left - (self.speed * dt)
         self.right = self.right - (self.speed * dt)
