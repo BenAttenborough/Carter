@@ -5,6 +5,7 @@ local config = {}
 config.playfield = {top = 0, right = 800, bottom = 600, left = 0}
 
 config.playerStartingPos = {x = 15, y = 15}
+config.mummyStartingPos = {x = 750, y = 550}
 
 config.column = {height = 600, width = 55, offset = 150}
 config.row = {width = 800, height = 80, offset = 130}
