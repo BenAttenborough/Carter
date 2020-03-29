@@ -62,4 +62,6 @@ function Player:moveDown(hort, dt)
     end
 end
 
+function Player:score() self.score = 0 end
+
 return Player

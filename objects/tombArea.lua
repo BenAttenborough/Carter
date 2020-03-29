@@ -97,11 +97,11 @@ function Pills:draw()
     end
 end
 
-function Pills:hasCollidedWith(item)
+function Pills:hasCollidedWith(player)
     for row = 1, 3 do
         for col = 1, 4 do
             if self.pillsWrapper[row][col] then
-                if checkCollision(item, self.pillsWrapper[row][col]) then
+                if checkCollision(player, self.pillsWrapper[row][col]) then
                     if self.pillsWrapper[row][col].hit == false then
                         self.pillsWrapper[row][col].hit = true
                         self.count = self.count - 1
