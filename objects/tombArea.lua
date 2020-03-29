@@ -84,6 +84,7 @@ function Pills:new(x, y)
     self.y = y
     self.pillsWrapper = createPills(x, y)
     self.count = 10
+    self.revealNoise = love.audio.newSource("/libs/reveal.mp3", "stream")
 end
 
 function Pills:draw()
@@ -104,6 +105,9 @@ function Pills:hasCollidedWith(item)
                     if self.pillsWrapper[row][col].hit == false then
                         self.pillsWrapper[row][col].hit = true
                         self.count = self.count - 1
+                        if (self.count == 0) then
+                            self.revealNoise:play()
+                        end
                     end
                     self.pillsWrapper[row][col].hitDirection = item.direction
                 end
@@ -126,19 +130,11 @@ function TombArea:new(x, y)
     self.penetrated = false
     self.tomb = Tomb(x + config.column.width, y + config.row.height,
                      config.tomb.width, config.tomb.height)
-    -- self.name = name
-    -- self.hit = false
-    -- self.hitDirection = "DOWN"
     self.pills = Pills(x, y)
 end
 
 function TombArea:draw()
     r, g, b, a = love.graphics.getColor()
-    -- if self.penetrated then
-    -- love.graphics.setColor(rgba(255, 0, 0))
-    -- love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
-    -- love.graphics.setColor(r, g, b, a)
-    -- end
     if self.pills.count == 0 then self.tomb:draw() end
     self.pills:draw()
 end

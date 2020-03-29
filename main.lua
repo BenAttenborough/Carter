@@ -14,7 +14,6 @@ local tombUtils = require "utilities.createTombAreas"
 local drawTombs = tombUtils.drawTombs
 local checkTombOneCollision = tombUtils.checkTombOneCollision
 score = 0
-revealNoise = love.audio.newSource("/libs/reveal.mp3", "stream")
 
 local function drawGame()
     Game_Playfield.draw()
