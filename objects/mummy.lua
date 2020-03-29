@@ -58,10 +58,10 @@ end
 
 function Mummy:move(player, playableArea, dt)
     local rowPos = checkRowPos(playableArea.rows, self)
-    print("rowPos: " .. rowPos)
+    -- print("rowPos: " .. rowPos)
 
     local colPos = checkColPos(playableArea.cols, self)
-    print("colPos: " .. colPos)
+    -- print("colPos: " .. colPos)
 
     -- Calculate distances
     local playerDistanceX = 0
