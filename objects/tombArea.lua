@@ -107,9 +107,10 @@ function Pills:hasCollidedWith(player)
                         self.count = self.count - 1
                         if (self.count == 0) then
                             self.revealNoise:play()
+                            player.score = player.score + 50
                         end
                     end
-                    self.pillsWrapper[row][col].hitDirection = item.direction
+                    self.pillsWrapper[row][col].hitDirection = player.direction
                 end
             end
         end

@@ -5,7 +5,10 @@ local Player = Sprite:extend()
 local vertOffset = 15
 local hortOffset = 13
 
-function Player:new(config, playfield) Player.super.new(self, config, playfield) end
+function Player:new(config, playfield)
+    Player.super.new(self, config, playfield)
+    self.score = 0
+end
 
 function Player:moveRight(vert, dt)
     self.graphicCurrent = self.graphicRight
@@ -61,7 +64,5 @@ function Player:moveDown(hort, dt)
         self.direction = "DOWN"
     end
 end
-
-function Player:score() self.score = 0 end
 
 return Player

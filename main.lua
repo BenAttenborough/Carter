@@ -24,7 +24,7 @@ local function drawGame()
 end
 
 local function drawScore()
-    local scoreText = "Score: " .. score
+    local scoreText = "Score: " .. player.score
     love.graphics.print(scoreText, 340, 560)
 end
 
