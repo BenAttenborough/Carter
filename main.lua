@@ -15,6 +15,8 @@ local drawTombs = tombUtils.drawTombs
 local checkTombOneCollision = tombUtils.checkTombOneCollision
 score = 0
 
+-- local M = require("libs/Moses/moses")
+
 local function drawGame()
     Game_Playfield.draw()
     playableArea.draw()
@@ -40,6 +42,15 @@ function love.load()
     love.graphics.setBackgroundColor(config.backgroundColour)
     love.window.setTitle("Carter")
     print("Carter started")
+
+    -- a = {} -- new array
+    -- for i = 1, 10 do a[i] = i end
+
+    -- for i = 1, 10 do print(a[i]) end
+
+    -- a = M.shuffle(a)
+
+    -- for i = 1, 10 do print(a[i]) end
 end
 
 function love.update(dt)

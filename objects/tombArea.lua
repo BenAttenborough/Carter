@@ -4,18 +4,21 @@ local config = require "config"
 
 Tomb = Object:extend()
 
-function Tomb:new(x, y, width, height)
+function Tomb:new(x, y, width, height, treasure)
     self.x = x
     self.y = y
     self.width = width
     self.height = height
+    self.graphicClose = love.graphics.newImage(config.tomb.graphicsClosed)
+    self.graphicOpen = love.graphics.newImage(treasure)
 end
 
-function Tomb:draw()
-    r, g, b, a = love.graphics.getColor()
-    love.graphics.setColor(rgba(255, 0, 0))
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-    love.graphics.setColor(r, g, b, a)
+function Tomb:draw(graphic)
+    -- r, g, b, a = love.graphics.getColor()
+    -- love.graphics.setColor(rgba(255, 0, 0))
+    -- love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+    -- love.graphics.setColor(r, g, b, a)
+    love.graphics.draw(graphic, self.x, self.y)
 end
 
 Pill = Object:extend()
@@ -119,7 +122,7 @@ end
 
 TombArea = Object:extend()
 
-function TombArea:new(x, y)
+function TombArea:new(x, y, graphic)
     self.x = x
     self.y = y
     self.width = config.tombArea.width
@@ -130,13 +133,18 @@ function TombArea:new(x, y)
     self.left = self.x
     self.penetrated = false
     self.tomb = Tomb(x + config.column.width, y + config.row.height,
-                     config.tomb.width, config.tomb.height)
+                     config.tomb.width, config.tomb.height, graphic)
+
     self.pills = Pills(x, y)
 end
 
 function TombArea:draw()
     r, g, b, a = love.graphics.getColor()
-    if self.pills.count == 0 then self.tomb:draw() end
+    if self.pills.count == 0 then
+        self.tomb:draw(self.tomb.graphicOpen)
+    else
+        self.tomb:draw(self.tomb.graphicClose)
+    end
     self.pills:draw()
 end
 
