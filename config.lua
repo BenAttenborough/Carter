@@ -20,7 +20,18 @@ config.tomb = {
     graphicsKey = config.graphicsDir .. "key.png",
     graphicsScroll = config.graphicsDir .. "scroll.png",
     graphicsMummy = config.graphicsDir .. "tomb_empty.png",
-    graphicsSarcophagus = config.graphicsDir .. "sarcophagus.png"
+    graphicsSarcophagus = config.graphicsDir .. "sarcophagus.png",
+    treasures = {
+        empty = {graphic = config.graphicsDir .. "tomb_empty.png", score = 0},
+        jewel = {graphic = config.graphicsDir .. "treasure_1.png", score = 50},
+        key = {graphic = config.graphicsDir .. "key.png", score = 50},
+        scroll = {graphic = config.graphicsDir .. "scroll.png", score = 50},
+        mummy = {graphic = config.graphicsDir .. "tomb_empty.png", score = 0},
+        sarcophagus = {
+            graphic = config.graphicsDir .. "sarcophagus.png",
+            score = 200
+        }
+    }
 }
 config.tombArea = {
     height = config.tomb.height + (config.row.height * 2),

@@ -10,7 +10,8 @@ function Tomb:new(x, y, width, height, treasure)
     self.width = width
     self.height = height
     self.graphicClose = love.graphics.newImage(config.tomb.graphicsClosed)
-    self.graphicOpen = love.graphics.newImage(treasure)
+    self.graphicOpen = love.graphics.newImage(treasure.graphic)
+    self.score = treasure.score
 end
 
 function Tomb:draw(graphic)
@@ -100,7 +101,7 @@ function Pills:draw()
     end
 end
 
-function Pills:hasCollidedWith(player)
+function Pills:hasCollidedWith(player, score)
     for row = 1, 3 do
         for col = 1, 4 do
             if self.pillsWrapper[row][col] then
@@ -110,7 +111,7 @@ function Pills:hasCollidedWith(player)
                         self.count = self.count - 1
                         if (self.count == 0) then
                             self.revealNoise:play()
-                            player.score = player.score + 50
+                            player.score = player.score + score
                         end
                     end
                     self.pillsWrapper[row][col].hitDirection = player.direction
@@ -122,7 +123,7 @@ end
 
 TombArea = Object:extend()
 
-function TombArea:new(x, y, graphic)
+function TombArea:new(x, y, treasure)
     self.x = x
     self.y = y
     self.width = config.tombArea.width
@@ -132,9 +133,9 @@ function TombArea:new(x, y, graphic)
     self.bottom = self.y + self.height
     self.left = self.x
     self.penetrated = false
+    self.treasure = treasure
     self.tomb = Tomb(x + config.column.width, y + config.row.height,
-                     config.tomb.width, config.tomb.height, graphic)
-
+                     config.tomb.width, config.tomb.height, treasure)
     self.pills = Pills(x, y)
 end
 
@@ -159,7 +160,7 @@ function TombArea:hasCollidedWith(item)
     if checkCollision(item, self) then
         -- print("You've collided with tomb 1s area")
         -- print(self.pills)
-        self.pills:hasCollidedWith(item, self)
+        self.pills:hasCollidedWith(item, self.treasure.score)
     end
 end
 

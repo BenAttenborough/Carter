@@ -8,14 +8,14 @@ treasures = {}
 treasures[1] = config.tomb.graphicsTreasure1
 treasures[2] = config.tomb.graphicsTreasure1
 
-for i = 1, 10 do treasures[i] = config.tomb.graphicsTreasure1 end
-for i = 11, 16 do treasures[i] = config.tomb.graphicsEmpty end
-treasures[#treasures + 1] = config.tomb.graphicsKey
-treasures[#treasures + 1] = config.tomb.graphicsScroll
-treasures[#treasures + 1] = config.tomb.graphicsMummy
-treasures[#treasures + 1] = config.tomb.graphicsSarcophagus
+for i = 1, 10 do treasures[i] = config.tomb.treasures.empty end
+for i = 11, 16 do treasures[i] = config.tomb.treasures.jewel end
+treasures[#treasures + 1] = config.tomb.treasures.key
+treasures[#treasures + 1] = config.tomb.treasures.scroll
+treasures[#treasures + 1] = config.tomb.treasures.mummy
+treasures[#treasures + 1] = config.tomb.treasures.sarcophagus
 
-treasures = M.shuffle(treasures)
+treasures = M.shuffle(treasures, os.time())
 
 -- for i = 1, 20 do print(treasures) end
 
