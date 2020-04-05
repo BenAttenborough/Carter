@@ -9,7 +9,7 @@ config.playfield = {top = 0, right = 800, bottom = 600, left = 0}
 -- config.playerStartingPos = {x = 15, y = 15}
 
 config.column = {height = 600, width = 55, offset = 150}
-config.row = {width = 800, height = 80, offset = 130}
+config.row = {width = 800, height = 60, offset = 115}
 
 config.tomb = {
     height = config.row.offset - config.row.height,

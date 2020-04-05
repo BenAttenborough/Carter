@@ -20,14 +20,14 @@ score = 0
 local function drawGame()
     Game_Playfield.draw()
     playableArea.draw()
-    drawTombs()
+    -- drawTombs()
     player:draw()
     mummy:draw()
 end
 
 local function drawScore()
     local scoreText = "Score: " .. player.score
-    love.graphics.print(scoreText, 340, 560)
+    love.graphics.print(scoreText, 360, 10)
 end
 
 local function drawDebug()
@@ -38,25 +38,21 @@ local function drawDebug()
 end
 
 function love.load()
+    -- more "retro-looking" font object we can use for any text
+    smallFont = love.graphics.newFont('graphics/font.ttf', 20)
+
+    -- set LÖVE2D's active font to the smallFont obect
+    love.graphics.setFont(smallFont)
     bindInputs()
     love.graphics.setBackgroundColor(config.backgroundColour)
     love.window.setTitle("Carter")
     print("Carter started")
-
-    -- a = {} -- new array
-    -- for i = 1, 10 do a[i] = i end
-
-    -- for i = 1, 10 do print(a[i]) end
-
-    -- a = M.shuffle(a)
-
-    -- for i = 1, 10 do print(a[i]) end
 end
 
 function love.update(dt)
-    playerMovement(player, playableArea, dt)
-    checkTombOneCollision(player)
-    mummy:move(player, playableArea, dt)
+    -- playerMovement(player, playableArea, dt)
+    -- checkTombOneCollision(player)
+    -- mummy:move(player, playableArea, dt)
 end
 
 function love.draw()

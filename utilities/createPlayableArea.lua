@@ -4,19 +4,23 @@ local config = require "config"
 local RowCreator = path.RowCreator
 local ColCreator = path.ColCreator
 
+local playfieldOffset = 80
+
 local function createPlayfield()
     rows = {
-        RowCreator(0, 0), RowCreator(0, config.row.offset),
-        RowCreator(0, config.row.offset * 2),
-        RowCreator(0, config.row.offset * 3),
-        RowCreator(0, config.row.offset * 4)
+        RowCreator(0, playfieldOffset),
+        RowCreator(0, playfieldOffset + config.row.offset),
+        RowCreator(0, playfieldOffset + config.row.offset * 2),
+        RowCreator(0, playfieldOffset + config.row.offset * 3),
+        RowCreator(0, playfieldOffset + config.row.offset * 4)
     }
     cols = {
-        ColCreator(0, 0), ColCreator(config.column.offset, 0),
+        ColCreator(0, playfieldOffset),
+        ColCreator(config.column.offset, playfieldOffset),
         ColCreator(config.column.offset * 2, 0),
-        ColCreator(config.column.offset * 3, 0),
-        ColCreator(config.column.offset * 4, 0),
-        ColCreator(config.column.offset * 5, 0)
+        ColCreator(config.column.offset * 3, playfieldOffset),
+        ColCreator(config.column.offset * 4, playfieldOffset),
+        ColCreator(config.column.offset * 5, playfieldOffset)
     }
     local playableArea = {rows = rows, cols = cols}
     function playableArea.draw()
